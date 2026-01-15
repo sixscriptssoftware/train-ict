@@ -1,0 +1,93 @@
+# ICT Agent Configuration
+
+agent:
+  symbols:
+    - EURUSD
+    - GBPUSD
+  
+  # Timeframes
+  htf_timeframe: "1d"    # Higher timeframe for bias
+  itf_timeframe: "1h"    # Intermediate for structure
+  ltf_timeframe: "15m"   # Lower timeframe for entry
+  
+  # Trade Requirements
+  min_risk_reward: 2.0
+  min_confluences: 3
+  min_confidence: 0.6
+  max_trades_per_day: 3
+  max_position_cycles: 2
+  
+  # Killzones (EST)
+  allowed_killzones:
+    - london        # 2:00 AM - 5:00 AM
+    - ny_am         # 7:00 AM - 10:00 AM
+    - ny_pm         # 1:00 PM - 4:00 PM
+  
+  # ICT Models to use
+  allowed_models:
+    - silver_bullet
+    - judas_swing
+    - ote_retracement
+    - fvg_rebalance
+  
+  # Session rules
+  weekend_close: true
+  weekend_close_hour: 16  # Friday 4 PM EST
+
+risk:
+  account_balance: 10000.0
+  max_risk_per_trade: 0.01    # 1% per trade
+  max_daily_loss: 0.02        # 2% daily limit
+  max_weekly_loss: 0.05       # 5% weekly limit
+  max_drawdown: 0.10          # 10% max drawdown
+  max_positions: 3
+  max_lots_per_position: 1.0
+  pip_size: 0.0001
+  pip_value: 10.0             # $10 per pip per lot
+
+backtest:
+  initial_capital: 10000.0
+  risk_per_trade: 0.01
+  commission_pips: 0.5
+  slippage_pips: 0.5
+  require_confirmation_candle: true
+
+data:
+  source: yfinance    # yfinance, ccxt, csv
+  
+  # For CCXT (crypto)
+  ccxt_exchange: binance
+  
+  # For CSV
+  csv_data_dir: data/
+
+logging:
+  level: INFO
+  log_signals: true
+  signal_log_path: logs/signals/
+
+# ICT Concept Parameters
+detectors:
+  fvg:
+    min_gap_pips: 5.0
+    join_consecutive: false
+  
+  order_block:
+    min_displacement_pips: 10.0
+    lookback: 5
+    close_mitigation: false
+  
+  market_structure:
+    swing_length: 10
+    require_displacement: true
+    displacement_atr_mult: 1.5
+  
+  liquidity:
+    swing_length: 10
+    equal_level_tolerance: 0.0002
+    sweep_confirmation_candles: 3
+  
+  displacement:
+    atr_period: 14
+    min_atr_multiple: 1.5
+    min_body_ratio: 0.6

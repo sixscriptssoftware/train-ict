@@ -1,0 +1,34 @@
+# ICT AI Trading Agent Requirements
+
+# Core Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+python-dateutil>=2.8.2
+
+# ICT Concept Detection
+smartmoneyconcepts>=0.0.21
+
+# Live Data Sources
+# NOTE: Some newer yfinance releases use Python 3.10+ type syntax (PEP 604), which
+# crashes at import-time on Python 3.9. Pin a known-good version for py3.9.
+yfinance==0.2.28; python_version < '3.10'
+yfinance>=0.2.28; python_version >= '3.10'
+ccxt>=4.0.0
+
+# Web & API
+requests>=2.31.0
+
+# Visualization
+plotly>=5.18.0
+
+# Utilities
+pyyaml>=6.0.1
+python-dotenv>=1.0.0
+loguru>=0.7.2
+
+# AI Vision (for chart analysis)
+openai>=1.0.0
+anthropic>=0.18.0
+
+# Development
+pytest>=7.4.0
