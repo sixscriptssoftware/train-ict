@@ -1,0 +1,221 @@
+{
+  "_comment": "FAILED SETUP TEMPLATE - Use for negative examples to train AI on what NOT to trade",
+  "_schema": "ict_trade_setup.schema.json",
+  "_example_type": "negative",
+
+  "id": "2026-01-20_LON_EURUSD_fake_OB_001",
+
+  "meta": {
+    "author": "Ashton",
+    "created_at": "2026-01-20T11:00:00Z",
+    "version": "1.1",
+    "tags": ["ICT", "failed_setup", "anti_pattern", "EURUSD"]
+  },
+
+  "market": {
+    "pair": "EURUSD",
+    "instrument_type": "FX",
+    "broker_feed": "OANDA",
+    "spread_pips": 0.2
+  },
+
+  "references": {
+    "conversation_id": "",
+    "transcript_timestamps": [],
+    "image_ids": [],
+    "chart_link": "",
+    "session_video_clip": ""
+  },
+
+  "time": {
+    "date": "2026-01-20",
+    "session": "London",
+    "killzone": "Late London",
+    "entry_timestamp": "2026-01-20T10:30:00Z",
+    "exit_timestamp": "2026-01-20T11:15:00Z",
+    "htf_tf": "H4",
+    "mtf_tf": "H1",
+    "ltf_tf": "M5",
+    "execution_tf": "M1"
+  },
+
+  "context": {
+    "day_type": "trend_day",
+    "vol_regime": "normal",
+    "news_context": "none",
+    "htf_bias": "bullish",
+    "environment_notes": "Main London move already happened. Price extended.",
+    
+    "range": {
+      "prior_day_high": 1.0950,
+      "prior_day_low": 1.0850,
+      "asia_high": 1.0920,
+      "asia_low": 1.0880,
+      "terminus_level": 1.0980,
+      "prior_distribution_zone": [1.0880, 1.0920],
+      "current_open": 1.0890
+    },
+    
+    "liquidity_map": {
+      "buy_side_levels": [
+        {"price": 1.0930, "type": "equal_highs_Asia_ALREADY_TAKEN"},
+        {"price": 1.0945, "type": "CBDR_extension"}
+      ],
+      "sell_side_levels": [
+        {"price": 1.0865, "type": "prior_day_mid"},
+        {"price": 1.0840, "type": "old_daily_low"}
+      ]
+    }
+  },
+
+  "pd_arrays": {
+    "htf_order_blocks": [],
+    
+    "ltf_order_blocks": [
+      {
+        "direction": "bullish",
+        "tf": "M5",
+        "price_zone": [1.0920, 1.0926],
+        "midpoint": 1.0923,
+        "mitigation_type": "wick_only"
+      }
+    ],
+    
+    "fair_value_gaps": [],
+    
+    "extensions": {
+      "cbdr_range": [1.0880, 1.0925],
+      "cbdr_extensions": [1.0935, 1.0945]
+    },
+    
+    "discount_premium": {
+      "anchor_swing": [1.0850, 1.0950],
+      "entry_in_discount": false,
+      "entry_discount_pct": 0.75
+    }
+  },
+
+  "setup": {
+    "bias": "long",
+    "setup_type": "OB_FVG_retrace_attempt",
+    
+    "pattern_story": {
+      "structure": "weak_bounce_misread_as_BOS",
+      "liquidity_objective": "unclear_or_conflicting",
+      "timing_model": "late_London_entry_after_main_move",
+      "session_model": "none_valid"
+    },
+    
+    "confirmation": {
+      "bos_or_choch": "none_or_fake",
+      "displacement": false,
+      "volume_spike": false,
+      "entry_model": "market_chase",
+      "extra_filters": [],
+      "red_flags_present": [
+        "no_clear_BOS",
+        "entry_in_premium_not_discount",
+        "target_liquidity_already_taken",
+        "late_in_session",
+        "chasing_price"
+      ]
+    }
+  },
+
+  "execution": {
+    "entry_price": 1.0925,
+    "stop_loss": 1.0915,
+    "risk_pips": 10,
+    "position_size_risk_pct": 1.5,
+    "max_adverse_excursion_pips": 12.0,
+    "max_favorable_excursion_pips": 3.0,
+    "targets": [
+      {
+        "label": "TP1_vague",
+        "price": 1.0940,
+        "reason": "vague_target",
+        "expected_rr": 1.5
+      }
+    ]
+  },
+
+  "management": {
+    "partials": [],
+    
+    "breakeven_move": {
+      "moved_to_be": false,
+      "trigger_reason": null
+    },
+    
+    "manual_interventions": [],
+    
+    "final_outcome": {
+      "result": "loss",
+      "rr_realized": -1.0
+    }
+  },
+
+  "reasoning": {
+    "why_here": "Thought it was a mitigation of prior OB, but actually price was already in premium.",
+    "why_now": "Felt like 'last chance' move late London.",
+    "what_invalidates": "HTF high taken and daily candle extended in opposite direction (ignored).",
+    "notes": "Should have been tagged as no-trade from the start.",
+    "psychology": "FOMO, revenge after earlier miss, wanted to 'be in a trade'.",
+    "post_trade_review": "Setup violated core rules; ignored multiple red flags.",
+    "pattern_confidence_score": 0.3
+  },
+
+  "failure_analysis": {
+    "root_cause": [
+      "misidentified_order_block",
+      "no_displacement_leg",
+      "ignored_higher_timeframe_premium"
+    ],
+    
+    "red_flags_ignored": [
+      "price_already_reached_liquidity_before_entry",
+      "entering_late_in_session",
+      "no_clear_BOS_or_CHoCH",
+      "entry_in_premium_zone_not_discount"
+    ],
+    
+    "structural_mistakes": [
+      "treated_internal_liquidity_sweep_as_reversal",
+      "confused_retracement_with_new_trend",
+      "no_HTF_OB_confluence"
+    ],
+    
+    "behavioral_mistakes": [
+      "FOMO_after_missing_clean_setup",
+      "increased_risk_above_plan",
+      "entered_without_waiting_for_confirmation"
+    ],
+    
+    "risk_mistakes": [
+      "oversized_position_1.5%_instead_of_1%",
+      "no_clear_invalidation_level_based_on_structure"
+    ],
+    
+    "what_should_have_been_done": [
+      "wait_for_clean_BOS_with_displacement",
+      "only_trade_from_discount_in_bullish_HTF_swing",
+      "skip_session_once_main_London_leg_finished",
+      "verify_liquidity_targets_still_available"
+    ],
+    
+    "lesson_summary": "Not every small reaction is an OB. Require displacement + HTF discount + unraided liquidity above before longing.",
+    "lesson_label": "do_not_chase_after_liquidity_is_taken"
+  },
+
+  "labels": {
+    "quality_tag": "C",
+    "example_type": "negative",
+    "failure_category": "structural",
+    "teaching_focus": [
+      "no_real_displacement",
+      "chasing_price",
+      "trading_into_liquidity",
+      "late_session_entry"
+    ]
+  }
+}

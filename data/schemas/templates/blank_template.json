@@ -1,0 +1,156 @@
+{
+  "_comment": "BLANK TEMPLATE - Copy this and fill in all fields",
+  "_schema": "ict_trade_setup.schema.json",
+
+  "id": "YYYY-MM-DD_SESSION_PAIR_SETUP_NUM",
+
+  "meta": {
+    "author": "Ashton",
+    "created_at": "",
+    "version": "1.0",
+    "tags": []
+  },
+
+  "market": {
+    "pair": "",
+    "instrument_type": "FX",
+    "broker_feed": "OANDA",
+    "spread_pips": null
+  },
+
+  "references": {
+    "conversation_id": "",
+    "transcript_timestamps": [],
+    "image_ids": [],
+    "chart_link": "",
+    "session_video_clip": ""
+  },
+
+  "time": {
+    "date": "",
+    "session": "",
+    "killzone": "",
+    "entry_timestamp": "",
+    "exit_timestamp": "",
+    "htf_tf": "H4",
+    "mtf_tf": "H1",
+    "ltf_tf": "M5",
+    "execution_tf": "M1"
+  },
+
+  "context": {
+    "day_type": "",
+    "vol_regime": "",
+    "news_context": "",
+    "htf_bias": "",
+    "environment_notes": "",
+    
+    "range": {
+      "prior_day_high": null,
+      "prior_day_low": null,
+      "asia_high": null,
+      "asia_low": null,
+      "terminus_level": null,
+      "prior_distribution_zone": [null, null],
+      "current_open": null
+    },
+    
+    "liquidity_map": {
+      "buy_side_levels": [],
+      "sell_side_levels": []
+    }
+  },
+
+  "pd_arrays": {
+    "htf_order_blocks": [],
+    "ltf_order_blocks": [],
+    "fair_value_gaps": [],
+    
+    "extensions": {
+      "cbdr_range": [null, null],
+      "cbdr_extensions": []
+    },
+    
+    "discount_premium": {
+      "anchor_swing": [null, null],
+      "entry_in_discount": null,
+      "entry_discount_pct": null
+    }
+  },
+
+  "setup": {
+    "bias": "",
+    "setup_type": "",
+    
+    "pattern_story": {
+      "structure": "",
+      "liquidity_objective": "",
+      "timing_model": "",
+      "session_model": ""
+    },
+    
+    "confirmation": {
+      "bos_or_choch": "",
+      "displacement": null,
+      "volume_spike": null,
+      "entry_model": "",
+      "extra_filters": [],
+      "red_flags_present": []
+    }
+  },
+
+  "execution": {
+    "entry_price": null,
+    "stop_loss": null,
+    "risk_pips": null,
+    "position_size_risk_pct": null,
+    "max_adverse_excursion_pips": null,
+    "max_favorable_excursion_pips": null,
+    "targets": []
+  },
+
+  "management": {
+    "partials": [],
+    
+    "breakeven_move": {
+      "moved_to_be": null,
+      "trigger_reason": null
+    },
+    
+    "manual_interventions": [],
+    
+    "final_outcome": {
+      "result": "",
+      "rr_realized": null
+    }
+  },
+
+  "reasoning": {
+    "why_here": "",
+    "why_now": "",
+    "what_invalidates": "",
+    "notes": "",
+    "psychology": "",
+    "post_trade_review": "",
+    "pattern_confidence_score": null
+  },
+
+  "failure_analysis": {
+    "_comment": "ONLY FILL THIS FOR NEGATIVE EXAMPLES",
+    "root_cause": [],
+    "red_flags_ignored": [],
+    "structural_mistakes": [],
+    "behavioral_mistakes": [],
+    "risk_mistakes": [],
+    "what_should_have_been_done": [],
+    "lesson_summary": "",
+    "lesson_label": ""
+  },
+
+  "labels": {
+    "quality_tag": "",
+    "example_type": "",
+    "failure_category": "",
+    "teaching_focus": []
+  }
+}

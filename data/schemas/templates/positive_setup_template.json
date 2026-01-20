@@ -1,0 +1,198 @@
+{
+  "_comment": "MASTER TEMPLATE - Copy and fill for each trade setup",
+  "_schema": "ict_trade_setup.schema.json",
+  "_example_type": "positive",
+
+  "id": "2026-01-20_LON_EURUSD_OBFVG_001",
+
+  "meta": {
+    "author": "Ashton",
+    "created_at": "2026-01-20T09:00:00Z",
+    "version": "1.1",
+    "tags": ["ICT", "London_model", "OB_FVG", "EURUSD"]
+  },
+
+  "market": {
+    "pair": "EURUSD",
+    "instrument_type": "FX",
+    "broker_feed": "OANDA",
+    "spread_pips": 0.2
+  },
+
+  "references": {
+    "conversation_id": "EURUSD_GBPUSD_BUY_01:20:26",
+    "transcript_timestamps": ["0:00:56", "0:01:34", "0:02:14"],
+    "image_ids": ["img_001", "img_002"],
+    "chart_link": "https://tradingview.com/...",
+    "session_video_clip": "clip_2026-01-20_LON_EURUSD_OBFVG_001.mp4"
+  },
+
+  "time": {
+    "date": "2026-01-20",
+    "session": "London",
+    "killzone": "London Open",
+    "entry_timestamp": "2026-01-20T08:15:00Z",
+    "exit_timestamp": "2026-01-20T09:10:00Z",
+    "htf_tf": "H4",
+    "mtf_tf": "H1",
+    "ltf_tf": "M5",
+    "execution_tf": "M1"
+  },
+
+  "context": {
+    "day_type": "trend_day",
+    "vol_regime": "normal",
+    "news_context": "post_CPI",
+    "htf_bias": "bullish",
+    "environment_notes": "D1 higher-high, price in discount of H4 swing.",
+    
+    "range": {
+      "prior_day_high": 1.0950,
+      "prior_day_low": 1.0850,
+      "asia_high": 1.0920,
+      "asia_low": 1.0880,
+      "terminus_level": 1.0980,
+      "prior_distribution_zone": [1.0880, 1.0920],
+      "current_open": 1.0890
+    },
+    
+    "liquidity_map": {
+      "buy_side_levels": [
+        {"price": 1.0930, "type": "equal_highs_Asia"},
+        {"price": 1.0945, "type": "CBDR_extension"}
+      ],
+      "sell_side_levels": [
+        {"price": 1.0865, "type": "prior_day_mid"},
+        {"price": 1.0840, "type": "old_daily_low"}
+      ]
+    }
+  },
+
+  "pd_arrays": {
+    "htf_order_blocks": [
+      {
+        "direction": "bullish",
+        "tf": "H1",
+        "price_zone": [1.0885, 1.0895],
+        "origin_description": "Last down candle before impulsive BOS leg."
+      }
+    ],
+    
+    "ltf_order_blocks": [
+      {
+        "direction": "bullish",
+        "tf": "M5",
+        "price_zone": [1.0890, 1.0896],
+        "midpoint": 1.0893,
+        "mitigation_type": "full_body"
+      }
+    ],
+    
+    "fair_value_gaps": [
+      {
+        "tf": "M5",
+        "price_zone": [1.0896, 1.0908],
+        "direction": "up",
+        "origin_leg_strength": "strong"
+      }
+    ],
+    
+    "extensions": {
+      "cbdr_range": [1.0880, 1.0925],
+      "cbdr_extensions": [1.0935, 1.0945]
+    },
+    
+    "discount_premium": {
+      "anchor_swing": [1.0850, 1.0950],
+      "entry_in_discount": true,
+      "entry_discount_pct": 0.30
+    }
+  },
+
+  "setup": {
+    "bias": "long",
+    "setup_type": "OB_FVG_retrace",
+    
+    "pattern_story": {
+      "structure": "BOS_up_with_displacement",
+      "liquidity_objective": "take_equal_highs_and_CBDR_extension",
+      "timing_model": "Asia_range_set_London_expands",
+      "session_model": "London_morning_buy"
+    },
+    
+    "confirmation": {
+      "bos_or_choch": "M5_BOS_up",
+      "displacement": true,
+      "volume_spike": false,
+      "entry_model": "limit_at_OB_50",
+      "extra_filters": ["no_major_news_next_15m"]
+    }
+  },
+
+  "execution": {
+    "entry_price": 1.0893,
+    "stop_loss": 1.0883,
+    "risk_pips": 10,
+    "position_size_risk_pct": 1.0,
+    "max_adverse_excursion_pips": 3.2,
+    "max_favorable_excursion_pips": 27.5,
+    "targets": [
+      {
+        "label": "TP1_liquidity_equal_highs",
+        "price": 1.0930,
+        "reason": "equal_highs_Asia",
+        "expected_rr": 3.7
+      },
+      {
+        "label": "TP2_CBDR_extension",
+        "price": 1.0945,
+        "reason": "CBDR_extension",
+        "expected_rr": 5.2
+      }
+    ]
+  },
+
+  "management": {
+    "partials": [
+      {
+        "tp_label": "TP1_liquidity_equal_highs",
+        "taken_pct": 50,
+        "timestamp": "2026-01-20T08:45:00Z"
+      }
+    ],
+    
+    "breakeven_move": {
+      "moved_to_be": true,
+      "trigger_reason": "price_closed_above_TP1"
+    },
+    
+    "manual_interventions": [
+      {
+        "timestamp": "2026-01-20T08:55:00Z",
+        "action": "reduced_risk",
+        "reason": "M1 shift in structure against position."
+      }
+    ],
+    
+    "final_outcome": {
+      "result": "win_partials",
+      "rr_realized": 2.5
+    }
+  },
+
+  "reasoning": {
+    "why_here": "Price retraced into M5 bullish OB inside H1 discount/FVG below buy-side liquidity.",
+    "why_now": "London open Judas down into OB after Asia defined range; HTF bullish BOS intact.",
+    "what_invalidates": "Clean break and close below M5 OB and Asia low.",
+    "notes": "",
+    "psychology": "Felt confident; model aligned across TFs; no FOMO.",
+    "post_trade_review": "Execution aligned with plan; partials maybe taken too early.",
+    "pattern_confidence_score": 0.9
+  },
+
+  "labels": {
+    "quality_tag": "A_plus",
+    "example_type": "positive",
+    "teaching_focus": ["multi_tf_alignment", "Judas_swing_usage"]
+  }
+}

@@ -1,0 +1,485 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ict-trainer.com/trade-setup.schema.json",
+  "title": "ICT Trade Setup",
+  "description": "Comprehensive schema for ICT trade setups - supports both positive and negative examples",
+  "type": "object",
+  "required": [
+    "id",
+    "market",
+    "time",
+    "context",
+    "pd_arrays",
+    "setup",
+    "execution",
+    "management",
+    "reasoning",
+    "labels"
+  ],
+  "properties": {
+    "id": { 
+      "type": "string",
+      "description": "Unique identifier: YYYY-MM-DD_SESSION_PAIR_SETUP_NUM",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}_[A-Z]+_[A-Z]+_[A-Za-z0-9_]+$"
+    },
+
+    "meta": {
+      "type": "object",
+      "description": "Metadata about this record",
+      "properties": {
+        "author": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "version": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "market": {
+      "type": "object",
+      "required": ["pair", "instrument_type", "broker_feed"],
+      "properties": {
+        "pair": { "type": "string" },
+        "instrument_type": { 
+          "type": "string", 
+          "enum": ["FX", "CFD", "FUTURES", "EQUITIES", "CRYPTO"] 
+        },
+        "broker_feed": { "type": "string" },
+        "spread_pips": { "type": "number" }
+      }
+    },
+
+    "references": {
+      "type": "object",
+      "description": "Links to source materials",
+      "properties": {
+        "conversation_id": { "type": "string" },
+        "transcript_timestamps": { 
+          "type": "array", 
+          "items": { "type": "string" } 
+        },
+        "image_ids": { 
+          "type": "array", 
+          "items": { "type": "string" } 
+        },
+        "chart_link": { "type": "string", "format": "uri" },
+        "session_video_clip": { "type": "string" }
+      }
+    },
+
+    "time": {
+      "type": "object",
+      "required": ["date", "session", "killzone", "entry_timestamp", "htf_tf", "mtf_tf", "ltf_tf"],
+      "properties": {
+        "date": { "type": "string", "format": "date" },
+        "session": { 
+          "type": "string", 
+          "enum": ["Asia", "London", "NewYork"] 
+        },
+        "killzone": { "type": "string" },
+        "entry_timestamp": { "type": "string", "format": "date-time" },
+        "exit_timestamp": { "type": "string", "format": "date-time" },
+        "htf_tf": { "type": "string" },
+        "mtf_tf": { "type": "string" },
+        "ltf_tf": { "type": "string" },
+        "execution_tf": { "type": "string" }
+      }
+    },
+
+    "context": {
+      "type": "object",
+      "required": ["day_type", "vol_regime", "news_context", "htf_bias", "range", "liquidity_map"],
+      "properties": {
+        "day_type": { 
+          "type": "string", 
+          "enum": ["trend_day", "range_day", "reversal_day"] 
+        },
+        "vol_regime": { 
+          "type": "string", 
+          "enum": ["low", "normal", "high"] 
+        },
+        "news_context": { "type": "string" },
+        "htf_bias": { 
+          "type": "string", 
+          "enum": ["bullish", "bearish", "neutral"] 
+        },
+        "environment_notes": { "type": "string" },
+
+        "range": {
+          "type": "object",
+          "required": ["prior_day_high", "prior_day_low", "asia_high", "asia_low", "terminus_level", "prior_distribution_zone"],
+          "properties": {
+            "prior_day_high": { "type": "number" },
+            "prior_day_low": { "type": "number" },
+            "asia_high": { "type": "number" },
+            "asia_low": { "type": "number" },
+            "terminus_level": { "type": "number" },
+            "prior_distribution_zone": {
+              "type": "array",
+              "items": { "type": "number" },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "current_open": { "type": "number" }
+          }
+        },
+
+        "liquidity_map": {
+          "type": "object",
+          "required": ["buy_side_levels", "sell_side_levels"],
+          "properties": {
+            "buy_side_levels": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  { "type": "number" },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "price": { "type": "number" },
+                      "type": { "type": "string" }
+                    },
+                    "required": ["price", "type"]
+                  }
+                ]
+              }
+            },
+            "sell_side_levels": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  { "type": "number" },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "price": { "type": "number" },
+                      "type": { "type": "string" }
+                    },
+                    "required": ["price", "type"]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "pd_arrays": {
+      "type": "object",
+      "required": ["htf_order_blocks", "ltf_order_blocks", "fair_value_gaps", "extensions"],
+      "properties": {
+        "htf_order_blocks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["direction", "tf", "price_zone"],
+            "properties": {
+              "direction": { "type": "string", "enum": ["bullish", "bearish"] },
+              "tf": { "type": "string" },
+              "price_zone": {
+                "type": "array",
+                "items": { "type": "number" },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "origin_description": { "type": "string" }
+            }
+          }
+        },
+
+        "ltf_order_blocks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["direction", "tf", "price_zone", "midpoint"],
+            "properties": {
+              "direction": { "type": "string", "enum": ["bullish", "bearish"] },
+              "tf": { "type": "string" },
+              "price_zone": {
+                "type": "array",
+                "items": { "type": "number" },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "midpoint": { "type": "number" },
+              "mitigation_type": { 
+                "type": "string", 
+                "enum": ["full_body", "wick_only"] 
+              }
+            }
+          }
+        },
+
+        "fair_value_gaps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["tf", "price_zone", "direction"],
+            "properties": {
+              "tf": { "type": "string" },
+              "price_zone": {
+                "type": "array",
+                "items": { "type": "number" },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "direction": { "type": "string", "enum": ["up", "down"] },
+              "origin_leg_strength": { 
+                "type": "string", 
+                "enum": ["weak", "normal", "strong"] 
+              }
+            }
+          }
+        },
+
+        "extensions": {
+          "type": "object",
+          "required": ["cbdr_range", "cbdr_extensions"],
+          "properties": {
+            "cbdr_range": {
+              "type": "array",
+              "items": { "type": "number" },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "cbdr_extensions": {
+              "type": "array",
+              "items": { "type": "number" }
+            }
+          }
+        },
+
+        "discount_premium": {
+          "type": "object",
+          "properties": {
+            "anchor_swing": {
+              "type": "array",
+              "items": { "type": "number" },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "entry_in_discount": { "type": "boolean" },
+            "entry_discount_pct": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        }
+      }
+    },
+
+    "setup": {
+      "type": "object",
+      "required": ["bias", "setup_type", "pattern_story", "confirmation"],
+      "properties": {
+        "bias": { "type": "string", "enum": ["long", "short"] },
+        "setup_type": {
+          "type": "string",
+          "enum": [
+            "OB_FVG_retrace",
+            "OB_FVG_retrace_attempt",
+            "Judas_into_OB",
+            "Liquidity_Sweep_Reversal",
+            "LTF_refinement",
+            "CBDR_ASIA_SD"
+          ]
+        },
+
+        "pattern_story": {
+          "type": "object",
+          "required": ["structure", "liquidity_objective", "timing_model"],
+          "properties": {
+            "structure": { "type": "string" },
+            "liquidity_objective": { "type": "string" },
+            "timing_model": { "type": "string" },
+            "session_model": { "type": "string" }
+          }
+        },
+
+        "confirmation": {
+          "type": "object",
+          "required": ["bos_or_choch", "displacement", "entry_model"],
+          "properties": {
+            "bos_or_choch": { "type": "string" },
+            "displacement": { "type": "boolean" },
+            "volume_spike": { "type": "boolean" },
+            "entry_model": { 
+              "type": "string", 
+              "enum": ["market", "limit", "mitigation", "limit_at_OB_50", "market_chase"] 
+            },
+            "extra_filters": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "red_flags_present": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "For negative examples - what was wrong"
+            }
+          }
+        }
+      }
+    },
+
+    "execution": {
+      "type": "object",
+      "required": ["entry_price", "stop_loss", "position_size_risk_pct", "targets"],
+      "properties": {
+        "entry_price": { "type": "number" },
+        "stop_loss": { "type": "number" },
+        "risk_pips": { "type": "number" },
+        "position_size_risk_pct": { "type": "number", "minimum": 0 },
+        "max_adverse_excursion_pips": { "type": "number" },
+        "max_favorable_excursion_pips": { "type": "number" },
+        "targets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "price", "reason"],
+            "properties": {
+              "label": { "type": "string" },
+              "price": { "type": "number" },
+              "reason": { "type": "string" },
+              "expected_rr": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+
+    "management": {
+      "type": "object",
+      "required": ["partials", "breakeven_move", "final_outcome"],
+      "properties": {
+        "partials": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["tp_label", "taken_pct", "timestamp"],
+            "properties": {
+              "tp_label": { "type": "string" },
+              "taken_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+              "timestamp": { "type": "string", "format": "date-time" }
+            }
+          }
+        },
+
+        "breakeven_move": {
+          "type": "object",
+          "required": ["moved_to_be", "trigger_reason"],
+          "properties": {
+            "moved_to_be": { "type": "boolean" },
+            "trigger_reason": { "type": ["string", "null"] }
+          }
+        },
+
+        "manual_interventions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "timestamp": { "type": "string", "format": "date-time" },
+              "action": { "type": "string" },
+              "reason": { "type": "string" }
+            }
+          }
+        },
+
+        "final_outcome": {
+          "type": "object",
+          "required": ["result", "rr_realized"],
+          "properties": {
+            "result": {
+              "type": "string",
+              "enum": ["win_full_tp", "win_partials", "be", "loss"]
+            },
+            "rr_realized": { "type": "number" }
+          }
+        }
+      }
+    },
+
+    "reasoning": {
+      "type": "object",
+      "required": ["why_here", "why_now", "what_invalidates", "notes"],
+      "properties": {
+        "why_here": { "type": "string" },
+        "why_now": { "type": "string" },
+        "what_invalidates": { "type": "string" },
+        "notes": { "type": "string" },
+        "psychology": { "type": "string" },
+        "post_trade_review": { "type": "string" },
+        "pattern_confidence_score": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+
+    "failure_analysis": {
+      "type": "object",
+      "description": "Required for negative examples - detailed breakdown of what went wrong",
+      "properties": {
+        "root_cause": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "red_flags_ignored": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "structural_mistakes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "behavioral_mistakes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "risk_mistakes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "what_should_have_been_done": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "lesson_summary": { "type": "string" },
+        "lesson_label": { "type": "string" }
+      }
+    },
+
+    "labels": {
+      "type": "object",
+      "required": ["quality_tag", "example_type"],
+      "properties": {
+        "quality_tag": { 
+          "type": "string", 
+          "enum": ["A_plus", "A", "B", "C"] 
+        },
+        "example_type": { 
+          "type": "string", 
+          "enum": ["positive", "negative"] 
+        },
+        "failure_category": {
+          "type": "string",
+          "enum": ["structural", "behavioral", "risk", "news", "random"],
+          "description": "Only for negative examples"
+        },
+        "teaching_focus": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  },
+
+  "if": {
+    "properties": {
+      "labels": {
+        "properties": {
+          "example_type": { "const": "negative" }
+        }
+      }
+    }
+  },
+  "then": {
+    "required": ["failure_analysis"]
+  },
+
+  "additionalProperties": false
+}
