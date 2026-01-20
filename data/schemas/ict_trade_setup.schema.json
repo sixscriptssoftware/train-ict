@@ -99,9 +99,15 @@
         },
         "image_ids": { 
           "type": "array", 
-          "items": { "type": "string" } 
+          "items": { "type": "string" },
+          "description": "Image filenames (without path)"
         },
-        "chart_link": { "type": "string", "format": "uri" },
+        "screenshots": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Relative paths to chart screenshots: screenshots/training/positive/ID.png"
+        },
+        "chart_link": { "type": "string" },
         "session_video_clip": { "type": "string" }
       }
     },

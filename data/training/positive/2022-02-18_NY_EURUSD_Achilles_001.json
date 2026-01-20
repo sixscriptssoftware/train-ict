@@ -1,0 +1,186 @@
+{
+  "id": "2022-02-18_NY_EURUSD_Achilles_001",
+
+  "meta": {
+    "author": "Ashton",
+    "created_at": "2026-01-20T05:00:00Z",
+    "version": "1.0",
+    "tags": ["achilles", "liquidity_sweep", "buyside_raid", "6R_winner", "historical"]
+  },
+
+  "market": {
+    "pair": "EURUSD",
+    "instrument_type": "FX",
+    "broker_feed": "TradingView",
+    "spread_pips": 0.8
+  },
+
+  "mm_model": {
+    "type": "MMSM",
+    "phase": "smart_money_reversal",
+    "dealing_range": {
+      "high": 1.1510,
+      "low": 1.1320,
+      "equilibrium": 1.1415
+    },
+    "entry_relative_to_eq": "above",
+    "target_liquidity": "sellside_achilles_1.1380_then_1.1320"
+  },
+
+  "references": {
+    "conversation_id": "",
+    "transcript_timestamps": [],
+    "image_ids": ["2022-02-18_NY_EURUSD_Achilles_001.png"],
+    "screenshots": ["screenshots/training/positive/2022-02-18_NY_EURUSD_Achilles_001.png"],
+    "chart_link": "",
+    "session_video_clip": ""
+  },
+
+  "time": {
+    "date": "2022-02-18",
+    "session": "NewYork",
+    "killzone": "NY_AM",
+    "entry_timestamp": "2022-02-18T14:00:00Z",
+    "exit_timestamp": "2022-02-18T20:00:00Z",
+    "htf_tf": "D1",
+    "mtf_tf": "H1",
+    "ltf_tf": "M15",
+    "execution_tf": "H1"
+  },
+
+  "context": {
+    "day_type": "trend_day",
+    "vol_regime": "normal",
+    "news_context": "none",
+    "htf_bias": "bearish",
+    "environment_notes": "Achilles model - 2nd Achilles hit (buyside liquidity). Selling into buyside sweep to target sellside liquidity below.",
+    
+    "range": {
+      "prior_day_high": 1.1500,
+      "prior_day_low": 1.1380,
+      "asia_high": 1.1490,
+      "asia_low": 1.1450,
+      "terminus_level": 1.1320,
+      "prior_distribution_zone": [1.1480, 1.1510],
+      "current_open": 1.1460
+    },
+    
+    "liquidity_map": {
+      "buy_side_levels": [
+        {"price": 1.1500, "type": "achilles_upper"},
+        {"price": 1.1480, "type": "buyside_zone"}
+      ],
+      "sell_side_levels": [
+        {"price": 1.1400, "type": "sellside_zone"},
+        {"price": 1.1380, "type": "achilles_lower"},
+        {"price": 1.1320, "type": "final_target"}
+      ]
+    }
+  },
+
+  "pd_arrays": {
+    "htf_order_blocks": [
+      {
+        "direction": "bearish",
+        "tf": "H1",
+        "price_zone": [1.1480, 1.1510],
+        "origin_description": "Buyside liquidity zone - Achilles upper level"
+      }
+    ],
+    
+    "ltf_order_blocks": [],
+    
+    "fair_value_gaps": [],
+    
+    "extensions": {
+      "cbdr_range": [1.1450, 1.1480],
+      "cbdr_extensions": [1.1420, 1.1380, 1.1320]
+    },
+    
+    "discount_premium": {
+      "anchor_swing": [1.1320, 1.1510],
+      "entry_in_discount": false,
+      "entry_discount_pct": 0.87
+    }
+  },
+
+  "setup": {
+    "bias": "short",
+    "setup_type": "Liquidity_Sweep_Reversal",
+    
+    "pattern_story": {
+      "structure": "achilles_2nd_hit",
+      "liquidity_objective": "buyside_swept_target_sellside",
+      "timing_model": "achilles_liquidity_model",
+      "session_model": "NY_AM_reversal"
+    },
+    
+    "confirmation": {
+      "bos_or_choch": "H1_rejection_from_buyside",
+      "displacement": true,
+      "volume_spike": false,
+      "entry_model": "limit",
+      "extra_filters": ["2nd_achilles_hit", "buyside_zone_tap", "premium_entry"]
+    }
+  },
+
+  "execution": {
+    "entry_price": 1.1485,
+    "stop_loss": 1.1510,
+    "risk_pips": 25,
+    "position_size_risk_pct": 1.0,
+    "max_adverse_excursion_pips": 10,
+    "max_favorable_excursion_pips": 165,
+    "targets": [
+      {
+        "label": "TP1_sellside_zone",
+        "price": 1.1400,
+        "reason": "sellside_liquidity_zone",
+        "expected_rr": 3.4
+      },
+      {
+        "label": "TP2_achilles_lower",
+        "price": 1.1380,
+        "reason": "lower_achilles_level",
+        "expected_rr": 4.2
+      },
+      {
+        "label": "TP3_final_target",
+        "price": 1.1320,
+        "reason": "final_liquidity_target",
+        "expected_rr": 6.6
+      }
+    ]
+  },
+
+  "management": {
+    "partials": [
+      {"at": "TP3_final", "pct_close": 100}
+    ],
+    "breakeven_move": "after_TP1",
+    "trail_method": "none_held_to_target",
+    "final_outcome": {
+      "result": "win_full_tp",
+      "pnl_pips": 165,
+      "r_achieved": 6.6,
+      "exit_reason": "TP_hit_achilles_lower_target"
+    }
+  },
+
+  "reasoning": {
+    "why_here": "2nd Achilles hit at buyside zone. Price swept buyside liquidity ~1.1500, entry at 1.1485 in premium. Achilles model says sell into buyside to target sellside.",
+    "why_now": "NY session - price hit 2nd Achilles level (buyside). Clean reversal setup after liquidity sweep.",
+    "what_invalidates": "Break above 1.1510 buyside zone invalidates.",
+    "notes": "Textbook Achilles model execution. Entry at 2nd hit of upper Achilles, exit at lower Achilles/sellside target. 6.6R winner - held full position to final target."
+  },
+
+  "labels": {
+    "is_valid_setup": true,
+    "quality_tag": "A_plus",
+    "example_type": "positive",
+    "primary_concept": "achilles_liquidity_sweep",
+    "all_concepts": ["achilles", "liquidity_sweep", "buyside_sellside", "premium_discount"]
+  },
+
+  "failure_analysis": null
+}
