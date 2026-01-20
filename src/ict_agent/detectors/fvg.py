@@ -257,3 +257,73 @@ class FVGDetector:
                 return min(above, key=lambda f: f.bottom)
         
         return None
+
+    def get_approaching_fvg(
+        self,
+        price: float,
+        direction: FVGDirection,
+        threshold_pips: float = 5.0,
+        current_index: Optional[int] = None
+    ) -> Optional[FVG]:
+        """
+        Get an active FVG that price is approaching (within threshold).
+        
+        Args:
+            price: Current price
+            direction: Direction of FVG to look for (target direction)
+            threshold_pips: How close price needs to be
+            current_index: If provided, ignore FVGs created at this index (too new)
+        """
+        active = self.get_active_fvgs(direction)
+        if not active:
+            return None
+            
+        threshold = threshold_pips * self.pip_size
+        
+        # Filter out FVGs from the current candle if index provided
+        if current_index is not None:
+            active = [f for f in active if f.index < current_index]
+
+        candidates = []
+        for fvg in active:
+            if direction == FVGDirection.BULLISH:
+                # Bullish FVG: Price should be above it, coming down to it
+                # Distance to top of FVG
+                dist = price - fvg.top
+                if 0 <= dist <= threshold:
+                    candidates.append(fvg)
+            else:
+                # Bearish FVG: Price should be below it, coming up to it
+                # Distance to bottom of FVG
+                dist = fvg.bottom - price
+                if 0 <= dist <= threshold:
+                    candidates.append(fvg)
+        
+        # Return the most relevant one (closest)
+        if candidates:
+            if direction == FVGDirection.BULLISH:
+                return max(candidates, key=lambda f: f.top)
+            else:
+                return min(candidates, key=lambda f: f.bottom)
+        
+        return None
+
+    def get_fvg_containing_price(
+        self,
+        price: float,
+        direction: Optional[FVGDirection] = None,
+        current_index: Optional[int] = None
+    ) -> Optional[FVG]:
+        """
+        Get an active FVG that physically contains the current price.
+        """
+        active = self.get_active_fvgs(direction)
+        
+        if current_index is not None:
+            active = [f for f in active if f.index < current_index]
+            
+        for fvg in active:
+            if fvg.bottom <= price <= fvg.top:
+                return fvg
+                
+        return None

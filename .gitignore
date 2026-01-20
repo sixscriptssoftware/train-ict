@@ -1,1 +1,51 @@
+# Virtual environments
 venv/
+.venv/
+env/
+
+# Environment variables (SECRETS!)
+.env
+.env.*
+*.env
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+eggs/
+*.egg
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files (large/personal)
+data/memory/
+data/vex_unified_data.json
+data/learning/vex_memory.json
+data/learning/pattern_stats.json
+
+# Analysis sessions (personal trades)
+analysis/sessions/
+
+# Screenshots (large files)
+screenshots/*.png
+
+# Archives
+vex_archive/
+
+# Spell check
+cspell.json

@@ -1,0 +1,81 @@
+{
+  "sell_model_liquidity_sweep": {
+    "topic": "Sell Model - Liquidity Sweep Setup",
+    "source": "Ashton direct teaching - Jan 15, 2026",
+    "summary": "Complete sell model using equal lows as liquidity target. Equal lows form (accumulation), price sweeps those lows (manipulation), returns to sell zone, displacement creates OB+FVG (distribution). Focus on FVG over OB - algorithm returns to the void (imbalance), just needs 50% to continue.",
+    "key_points": [
+      "Equal lows are NOT support - they are LIQUIDITY",
+      "2-3 candles at same area = liquidity pool - functional not technical",
+      "Sweep is fluid/destined, not violent - 20-30 pips that knocks people out",
+      "Sweep can be whole candle, not just wick",
+      "Displacement = structure shift WITH SPEED during sessions/Judas swings",
+      "FVG more important than OB - algorithm returning to the void",
+      "50% of FVG imbalance is key level",
+      "They don't teach this - this is what makes the difference"
+    ],
+    "sequence": [
+      "1. Identify HTF bearish bias",
+      "2. Equal lows form (2-3 candles same area)",
+      "3. Price rallies (inducement)",
+      "4. Price SWEEPS the lows - fluid destined movement",
+      "5. Price returns to premium/sell zone",
+      "6. Displacement creates FVG (and maybe OB)",
+      "7. Future entry: Sell at FVG 50%"
+    ],
+    "fvg_vs_ob": {
+      "priority": "FVG over OB",
+      "reason": "Algorithm trying to bring price back to the VOID to balance",
+      "entry_level": "50% of the imbalance - TOUCH only, no candle close needed",
+      "why_touch_only": "It's an algorithm. This is numbers. This is math. Price has to balance - when there's imbalance, price returns there to continue forward.",
+      "ashton_quote": "That's why the displacement and fair value gaps are so darn important and they're really the key to all this."
+    },
+    "examples": [
+      {
+        "pair": "EUR/USD",
+        "timeframe": "15M",
+        "date": "Jan 13-15, 2026",
+        "equal_lows": "Jan 13, 11:00-21:00 around 1.1640",
+        "sweep": "Price took the equal lows",
+        "displacement": "Jan 15 07:00-09:00 - sequential candles, structure shift with speed",
+        "fvg_location": "Gap created by displacement"
+      },
+      {
+        "pair": "DXY",
+        "date": "Jan 15, 2026",
+        "notes": "Bought equal highs, blew right through them - same concept inverse"
+      }
+    ],
+    "learned_at": "2026-01-15T22:45:00",
+    "confidence": 0.98
+  },
+  "chart_annotation_standards": {
+    "topic": "How to Properly Annotate ICT Charts",
+    "source": "Ashton direct feedback - Jan 15, 2026",
+    "summary": "Be SPECIFIC and SURGICAL. Use thin lines and small boxes on exact levels/candles. Tell the story - show the sequence of how patterns connect. Don't use vague circles or mark random patterns.",
+    "key_points": [
+      "Thin horizontal lines for levels (equal highs/lows)",
+      "Small rectangles for OBs - fit the exact candle",
+      "Tight vertical boxes for FVGs - the actual gap",
+      "Labels RIGHT NEXT to what you mark",
+      "Show the STORY - how patterns connect",
+      "Don't mark sweeps without showing WHAT was swept"
+    ],
+    "wrong_approach": [
+      "Big chunky circles",
+      "Huge vague boxes",
+      "Random pattern markings",
+      "No context or story"
+    ],
+    "learned_at": "2026-01-15T22:30:00",
+    "confidence": 0.95
+  },
+  "youtube_Jxl5UJk_ylc": {
+    "topic": "youtube_Jxl5UJk_ylc",
+    "source_url": "https://youtube.com/watch?v=Jxl5UJk_ylc",
+    "summary": "I thought I had record going and I didn't. So buying the uh Monday first presented fair you I can do this off differently from what I'm used to. And right now we're live. Whoops. Don't Nice. It's normal. So anyway, I started and I opened this up as a um exploration on how we're going to use the morning session. And I was talking and the microphone wasn't on. I've done this a lot, but uh I had to restart it and then do the uh the microphone. You make sure it was picking me up. So, long story short, I was looking for this entry here. There's a wick down there that I was feeding the girls. So, I had my phone with me and I I went long on the very next candle there. You see that? And then I went long right there. So, what I'm looking for is I'm wanting the buy side that's resting above the pre-market session highs and then this high up here, which is overnight relatively cool highs. So, this orange box up here is first present. I got from Friday. It's a really ugly morning and it's trying t",
+    "key_points": [],
+    "examples": [],
+    "learned_at": "2026-01-15T11:33:49.420511",
+    "confidence": 0.4
+  }
+}

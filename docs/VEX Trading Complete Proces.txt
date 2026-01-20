@@ -1,0 +1,456 @@
+VEX ICT Trading System - Complete Process Breakdown
+Here's exactly how my unified trading system works, step by step:
+
+🔄 THE COMPLETE WORKFLOW
+
+STEP 1: DATA COLLECTION
+1A. OANDA Price Data
+File: src/ict_agent/data/oanda_fetcher.py
+
+What happens:
+- Connect to OANDA API using your API key
+- Fetch 500 candles of OHLC data (Open, High, Low, Close)
+- Also fetch higher timeframe data (1H) for HTF bias
+- Get current bid/ask price and spread
+
+Output: DataFrame with columns [open, high, low, close, volume]
+
+1B. TradingView Chart Image
+File: scripts/fetch_tradingview_chart.py
+
+What happens:
+- Launch headless browser (Playwright/Firefox)
+- Navigate to TradingView chart URL
+- Take screenshot of the chart
+- Save to screenshots/ folder
+
+Output: PNG image of current chart
+
+STEP 2: ICT ANALYSIS (8 Sub-Steps)
+2A. Killzone & Session Check
+File: src/ict_agent/engine/killzone.py
+
+What I check:
+- Current time in NY timezone
+- Which killzone are we in?
+  • London (2-5 AM EST)
+  • NY AM (7-10 AM EST)
+  • NY PM (1-4 PM EST)
+  • Asian (7 PM - 12 AM EST)
+- Is this a MACRO time? (XX:50-XX:10, XX:20-XX:30)
+
+Output: killzone name, is_macro_time boolean
+
+2B. Market Structure Analysis
+File: src/ict_agent/core/structure_breaks.py
+
+What I detect:
+- Swing highs and swing lows
+- Break of Structure (BOS) - continuation
+- Market Structure Shift (MSS) - reversal potential
+- Change of Character (CHoCH) - confirmed reversal
+- Protected swings (not yet broken)
+- Displacement (strong momentum candles)
+
+Output: trend (bullish/bearish), structure_breaks count, latest_break details
+
+2C. Liquidity Mapping
+File: src/ict_agent/core/stop_hunt.py
+
+What I map:
+- Buy-Side Liquidity (BSL) - stops above swing highs
+- Sell-Side Liquidity (SSL) - stops below swing lows
+- Equal highs/lows (double tops/bottoms)
+- Detect when liquidity has been SWEPT (stop hunt)
+- Classify strength: weak, moderate, strong
+
+Output: List of BSL levels, List of SSL levels, stop_hunts detected
+
+2D. AMD Cycle (Accumulation-Manipulation-Distribution)
+File: src/ict_agent/core/amd_engine.py
+
+What I detect:
+- ACCUMULATION: Tight range forming (< 30 pips)
+- MANIPULATION: Judas swing (false breakout to grab liquidity)
+- DISTRIBUTION: Real move after manipulation
+
+Based on session:
+- Asian = Accumulation expected
+- London = Manipulation expected
+- NY = Distribution expected
+
+Output: current_phase, expected_direction
+
+2E. Buy/Sell Model Detection
+File: src/ict_agent/models/buy_sell_model.py
+
+What I identify:
+- Is this a BUY MODEL or SELL MODEL?
+- Which phase are we in?
+  • L1 (first leg)
+  • L2 (reaccumulation)
+  • L3 (distribution)
+  • Terminus (the reversal point)
+- Count distribution legs
+- Find ACC turn DIS zones
+
+Output: model_type, phase, leg_count, confidence, terminus_price
+
+2F. Market Maker Model (MMBM/MMSM)
+File: src/ict_agent/models/market_maker_model.py
+
+What I detect:
+- Original Consolidation (the target)
+- Sellside/Buyside Curve (engineered liquidity levels)
+- PD Array (Premium/Discount zone)
+- Smart Money Reversal point
+- FVG entry zone
+
+Output: model_type (MMBM/MMSM), phase, confidence
+
+2G. Turtle Soup Detection
+File: src/ict_agent/models/turtle_soup.py
+
+What I look for:
+- Price sweeps beyond a swing high/low
+- Fails to hold (wick rejection)
+- MSS confirms reversal
+- Entry on FVG or OB after the sweep
+
+Output: hunt_type, entry_price, stop_loss, target_price, confidence
+
+2G. Turtle Soup Detection
+File: src/ict_agent/models/turtle_soup.py
+
+What I look for:
+- Price sweeps beyond a swing high/low
+- Fails to hold (wick rejection)
+- MSS confirms reversal
+- Entry on FVG or OB after the sweep
+
+Output: hunt_type, entry_price, stop_loss, target_price, confidence
+
+2H. CBDR & Asian Range
+Files: src/ict_agent/engine/cbdr.py, asian_range.py
+
+CBDR (Central Bank Dealers Range):
+- Measure 2 PM - 8 PM NY range
+- Calculate Standard Deviation projections
+  • SD+1, SD+2, SD+3 (above)
+  • SD-1, SD-2, SD-3 (below)
+- Ideal CBDR < 40 pips
+
+Asian Range:
+- Measure 7 PM - 12 AM NY range
+- Tight Asian = explosive breakout expected
+
+Output: range_pips, quality, SD levels, current price location
+
+STEP 3: DECISION MAKING
+3A. Confluence Scoring
+Each confluence adds to the score:
+
++1 or -1 for:
+- Trend direction (bullish/bearish structure)
+- AMD expected direction
+- Buy Model detected (+1) / Sell Model detected (-1)
+- MMBM detected (+1) / MMSM detected (-1)
+
++0.5 for:
+- Price above CBDR (+0.5) / below CBDR (-0.5)
+- In killzone (adds to confluences list)
+- Macro time (adds to confluences list)
+
+3B. Bias Determination
+Score >= 2:  STRONG BULLISH
+Score == 1:  BULLISH
+Score == 0:  NEUTRAL
+Score == -1: BEARISH
+Score <= -2: STRONG BEARISH
+
+3C. Trade Setup Generation
+If bias score >= 1 or <= -1, generate setup:
+
+FOR SHORT:
+- Entry: Current price
+- Stop Loss: Above nearest BSL + 5 pip buffer
+  (or +20 pips if no BSL found)
+- Target 1: Nearest SSL level
+  (or SD-1 from CBDR if no SSL)
+- Target 2: SD-2 level
+
+FOR LONG:
+- Entry: Current price
+- Stop Loss: Below nearest SSL - 5 pip buffer
+- Target 1: Nearest BSL level
+- Target 2: SD+2 level
+
+3D. Position Sizing
+Formula:
+risk_amount = account_balance × risk_percent (2%)
+risk_pips = abs(entry - stop_loss) × 10000
+position_size = risk_amount / (risk_pips × 0.0001)
+
+Example:
+- $10,000 account, 2% risk = $200 max risk
+- 20 pip stop loss
+- Position = $200 / (20 × 0.0001) = 100,000 units (1 lot)
+
+┌─────────────────────────────────────────────────────────────────────┐
+│                     VEX ICT TRADING SYSTEM                          │
+│                                                                     │
+│  INPUT: Symbol (e.g., EURUSD) + Timeframe (e.g., 15m)              │
+│                                                                     │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐             │
+│  │   STEP 1    │───▶│   STEP 2    │───▶│   STEP 3    │             │
+│  │  Get Data   │    │  Analyze    │    │  Decide     │             │
+│  └─────────────┘    └─────────────┘    └─────────────┘             │
+│         │                  │                  │                     │
+│         ▼                  ▼                  ▼                     │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐             │
+│  │   STEP 4    │◀───│   STEP 5    │◀───│   STEP 6    │             │
+│  │  Execute    │    │   Log       │    │   Monitor   │             │
+│  └─────────────┘    └─────────────┘    └─────────────┘             │
+│                                                                     │
+│  OUTPUT: Trade placed on OANDA + Logged to Journal                 │
+└─────────────────────────────────────────────────────────────────────┘
+
+STEP 1: DATA COLLECTION
+1A. OANDA Price Data
+File: src/ict_agent/data/oanda_fetcher.py
+
+What happens:
+- Connect to OANDA API using your API key
+- Fetch 500 candles of OHLC data (Open, High, Low, Close)
+- Also fetch higher timeframe data (1H) for HTF bias
+- Get current bid/ask price and spread
+
+Output: DataFrame with columns [open, high, low, close, volume]
+1B. TradingView Chart Image (Optional)
+File: scripts/fetch_tradingview_chart.py
+
+What happens:
+- Launch headless browser (Playwright/Firefox)
+- Navigate to TradingView chart URL
+- Take screenshot of the chart
+- Save to screenshots/ folder
+
+Output: PNG image of current chart
+
+STEP 2: ICT ANALYSIS (8 Sub-Steps)
+2A. Killzone & Session Check
+File: src/ict_agent/engine/killzone.py
+
+What I check:
+- Current time in NY timezone
+- Which killzone are we in?
+  • London (2-5 AM EST)
+  • NY AM (7-10 AM EST)
+  • NY PM (1-4 PM EST)
+  • Asian (7 PM - 12 AM EST)
+- Is this a MACRO time? (XX:50-XX:10, XX:20-XX:30)
+
+Output: killzone name, is_macro_time boolean
+2B. Market Structure Analysis
+File: src/ict_agent/core/structure_breaks.py
+
+What I detect:
+- Swing highs and swing lows
+- Break of Structure (BOS) - continuation
+- Market Structure Shift (MSS) - reversal potential
+- Change of Character (CHoCH) - confirmed reversal
+- Protected swings (not yet broken)
+- Displacement (strong momentum candles)
+
+Output: trend (bullish/bearish), structure_breaks count, latest_break details
+2C. Liquidity Mapping
+File: src/ict_agent/core/stop_hunt.py
+
+What I map:
+- Buy-Side Liquidity (BSL) - stops above swing highs
+- Sell-Side Liquidity (SSL) - stops below swing lows
+- Equal highs/lows (double tops/bottoms)
+- Detect when liquidity has been SWEPT (stop hunt)
+- Classify strength: weak, moderate, strong
+
+Output: List of BSL levels, List of SSL levels, stop_hunts detected
+2D. AMD Cycle (Accumulation-Manipulation-Distribution)
+File: src/ict_agent/core/amd_engine.py
+
+What I detect:
+- ACCUMULATION: Tight range forming (< 30 pips)
+- MANIPULATION: Judas swing (false breakout to grab liquidity)
+- DISTRIBUTION: Real move after manipulation
+
+Based on session:
+- Asian = Accumulation expected
+- London = Manipulation expected
+- NY = Distribution expected
+
+Output: current_phase, expected_direction
+2E. Buy/Sell Model Detection
+File: src/ict_agent/models/buy_sell_model.py
+
+What I identify:
+- Is this a BUY MODEL or SELL MODEL?
+- Which phase are we in?
+  • L1 (first leg)
+  • L2 (reaccumulation)
+  • L3 (distribution)
+  • Terminus (the reversal point)
+- Count distribution legs
+- Find ACC turn DIS zones
+
+Output: model_type, phase, leg_count, confidence, terminus_price
+2F. Market Maker Model (MMBM/MMSM)
+File: src/ict_agent/models/market_maker_model.py
+
+What I detect:
+- Original Consolidation (the target)
+- Sellside/Buyside Curve (engineered liquidity levels)
+- PD Array (Premium/Discount zone)
+- Smart Money Reversal point
+- FVG entry zone
+
+Output: model_type (MMBM/MMSM), phase, confidence
+2G. Turtle Soup Detection
+File: src/ict_agent/models/turtle_soup.py
+
+What I look for:
+- Price sweeps beyond a swing high/low
+- Fails to hold (wick rejection)
+- MSS confirms reversal
+- Entry on FVG or OB after the sweep
+
+Output: hunt_type, entry_price, stop_loss, target_price, confidence
+2H. CBDR & Asian Range
+Files: src/ict_agent/engine/cbdr.py, asian_range.py
+
+CBDR (Central Bank Dealers Range):
+- Measure 2 PM - 8 PM NY range
+- Calculate Standard Deviation projections
+  • SD+1, SD+2, SD+3 (above)
+  • SD-1, SD-2, SD-3 (below)
+- Ideal CBDR < 40 pips
+
+Asian Range:
+- Measure 7 PM - 12 AM NY range
+- Tight Asian = explosive breakout expected
+
+Output: range_pips, quality, SD levels, current price location
+
+STEP 3: DECISION MAKING
+3A. Confluence Scoring
+Each confluence adds to the score:
+
++1 or -1 for:
+- Trend direction (bullish/bearish structure)
+- AMD expected direction
+- Buy Model detected (+1) / Sell Model detected (-1)
+- MMBM detected (+1) / MMSM detected (-1)
+
++0.5 for:
+- Price above CBDR (+0.5) / below CBDR (-0.5)
+- In killzone (adds to confluences list)
+- Macro time (adds to confluences list)
+
+3B. Bias Determination
+Score >= 2:  STRONG BULLISH
+Score == 1:  BULLISH
+Score == 0:  NEUTRAL
+Score == -1: BEARISH
+Score <= -2: STRONG BEARISH
+
+3C. Trade Setup Generation
+If bias score >= 1 or <= -1, generate setup:
+
+FOR SHORT:
+- Entry: Current price
+- Stop Loss: Above nearest BSL + 5 pip buffer
+  (or +20 pips if no BSL found)
+- Target 1: Nearest SSL level
+  (or SD-1 from CBDR if no SSL)
+- Target 2: SD-2 level
+
+FOR LONG:
+- Entry: Current price
+- Stop Loss: Below nearest SSL - 5 pip buffer
+- Target 1: Nearest BSL level
+- Target 2: SD+2 level
+
+3D. Position Sizing
+Formula:
+risk_amount = account_balance × risk_percent (2%)
+risk_pips = abs(entry - stop_loss) × 10000
+position_size = risk_amount / (risk_pips × 0.0001)
+
+Example:
+- $10,000 account, 2% risk = $200 max risk
+- 20 pip stop loss
+- Position = $200 / (20 × 0.0001) = 100,000 units (1 lot)
+
+STEP 4: TRADE EXECUTION
+4A. Pre-Execution Checks
+File: src/ict_agent/execution/risk_guardian.py
+
+Checks:
+- Total exposure < $450?
+- Trades today < 24?
+- Open positions < 4?
+- Drawdown < $450?
+- Not already in same direction on this pair?
+
+4B. Order Placement
+File: src/ict_agent/execution/oanda_executor.py
+
+API Call to OANDA:
+- Order type: MARKET
+- Instrument: EUR_USD (or other pair)
+- Units: Positive for BUY, Negative for SELL
+- stopLossOnFill: SL price
+- takeProfitOnFill: TP price
+
+Returns: trade_id, fill_price, or error
+
+STEP 5: JOURNALING
+5A. VEX's Journal (My Trades)
+File: journal/vex/YYYY-MM-DD.json
+
+I log:
+{
+  "timestamp": "2026-01-15T16:00:00",
+  "symbol": "EURUSD",
+  "direction": "SHORT",
+  "entry": 1.16000,
+  "stop_loss": 1.16200,
+  "target_1": 1.15700,
+  "trade_id": "123",
+  "confluences": ["Bearish", "Sell Model", "MMSM", "Below CBDR"]
+}
+
+5B. Your Journal (Our Shared Trades)
+File: journal/ashton/YYYY/MM/trade_folder/entry.md
+
+Contains:
+- Pre-trade chart image
+- Your analysis (I question you)
+- My ICT breakdown
+- Our discussion
+- Trade idea sheet
+- Post-trade chart
+- Outcome review
+
+STEP 6: MONITORING (Continuous)
+6A. Position Tracking
+Every scan cycle (5 minutes):
+- Get open positions from OANDA
+- Calculate unrealized P/L
+- Check if SL or TP hit
+- Update journal with outcome
+
+6B. Re-Analysis
+If still in trade:
+- Is bias still valid?
+- Has structure changed?
+- Should we trail stop?
+- Time to take partials?

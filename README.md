@@ -16,38 +16,57 @@ This agent encodes ICT (Michael Huddleston's) trading concepts into algorithmic 
 
 ```
 ict_trainer/
-├── src/ict_agent/
-│   ├── detectors/          # ICT concept detection
-│   │   ├── fvg.py          # Fair Value Gap detector
-│   │   ├── order_block.py  # Order Block detector
-│   │   ├── market_structure.py  # BOS/SMS/CHoCH detection
-│   │   ├── liquidity.py    # Liquidity pool/sweep detection
-│   │   └── displacement.py # Displacement detection
+├── src/ict_agent/              # Core library
+│   ├── vex_brain_v2.py         # ⭐ MAIN BRAIN (76KB) - Use this!
+│   ├── vex_brain.py            # V1 brain (reference)
+│   ├── vex_core.py             # Core utilities
+│   ├── vex_system.py           # System integration
+│   ├── vex_anticipation.py     # Predictive analysis
 │   │
-│   ├── models/             # ICT trading models
-│   │   ├── silver_bullet.py
-│   │   ├── judas_swing.py
-│   │   ├── power_of_three.py
-│   │   └── ote_retracement.py
+│   ├── detectors/              # ICT concept detection
+│   │   ├── fvg.py              # Fair Value Gap
+│   │   ├── order_block.py      # Order Blocks
+│   │   ├── market_structure.py # BOS/CHoCH
+│   │   ├── liquidity.py        # Liquidity pools
+│   │   └── displacement.py     # Displacement
 │   │
-│   ├── engine/             # Core trading engine
-│   │   ├── agent.py        # Main trading agent
-│   │   ├── signal_generator.py  # Signal generation with confluences
-│   │   ├── mtf_analyzer.py # Multi-timeframe analysis
-│   │   └── killzone.py     # Time-based filtering
+│   ├── models/                 # ICT trading models
+│   │   ├── silver_bullet.py    # Silver Bullet setups
+│   │   ├── judas_swing.py      # Judas Swing
+│   │   ├── power_of_three.py   # AMD cycle
+│   │   └── turtle_soup.py      # Turtle Soup
 │   │
-│   ├── data/               # Data handling
-│   │   ├── fetcher.py      # Multi-source data fetching
-│   │   └── preprocessor.py # Data preprocessing
+│   ├── engine/                 # Trading engine
+│   │   ├── killzone.py         # Session timing
+│   │   ├── asian_range.py      # Asian range calc
+│   │   ├── cbdr.py             # CBDR logic
+│   │   └── mtf_analyzer.py     # Multi-timeframe
 │   │
-│   ├── backtest/           # Backtesting framework
-│   │   ├── engine.py       # Backtest execution
-│   │   └── metrics.py      # Performance metrics
+│   ├── execution/              # Live trading
+│   │   ├── oanda_executor.py   # OANDA API
+│   │   ├── autonomous_trader.py # Auto trading
+│   │   └── risk_guardian.py    # Risk limits
 │   │
-│   └── execution/          # Trade execution
-│       ├── position_manager.py  # Position management
-│       └── risk_manager.py      # Risk management
+│   ├── learning/               # Self-improvement
+│   │   ├── knowledge_manager.py # Knowledge base
+│   │   └── trade_learner.py    # Learn from trades
+│   │
+│   └── data/                   # Data handling
+│       └── oanda_fetcher.py    # OANDA data fetch
 │
+├── scripts/                    # Executable scripts
+│   ├── trading/                # Live trading
+│   │   └── vex_unleashed.py    # ⭐ Main autonomous trader
+│   ├── backtest/               # Backtesting
+│   ├── analysis/               # Trade analysis
+│   ├── debug/                  # Diagnostics
+│   ├── utils/                  # Utilities
+│   │   └── vex_hub.py          # Web dashboard
+│   └── tests/                  # Quick tests
+│
+├── journal/                    # Trade journaling
+├── knowledge_base/             # ICT knowledge
+└── data/                       # Data storage
 ├── scripts/                # Example scripts
 │   ├── run_backtest.py
 │   └── live_trading_demo.py
