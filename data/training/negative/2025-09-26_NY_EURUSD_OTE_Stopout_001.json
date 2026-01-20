@@ -1,0 +1,236 @@
+{
+    "id": "2025-09-26_NY_EURUSD_OTE_Stopout_001",
+    "meta": {
+        "author": "Ashton",
+        "created_at": "2026-01-20T12:59:00Z",
+        "version": "1.0",
+        "tags": [
+            "OTE_setup",
+            "order_block_failure",
+            "stopout",
+            "negative_example",
+            "prop_firm"
+        ]
+    },
+    "market": {
+        "pair": "EURUSD",
+        "instrument_type": "FX",
+        "broker_feed": "OANDA",
+        "spread_pips": 0.8
+    },
+    "references": {
+        "conversation_id": "",
+        "transcript_timestamps": [],
+        "image_ids": [
+            "EURUSD_2025-09-26_stopout"
+        ],
+        "screenshots": [
+            "screenshots/training/negative/2025-09-26_NY_EURUSD_OTE_Stopout_001.png"
+        ],
+        "chart_link": "",
+        "session_video_clip": ""
+    },
+    "time": {
+        "date": "2025-09-26",
+        "session": "NewYork",
+        "killzone": "NY_AM",
+        "entry_timestamp": "2025-09-26T06:58:00Z",
+        "exit_timestamp": "2025-09-26T11:00:00Z",
+        "htf_tf": "D1",
+        "mtf_tf": "H4",
+        "ltf_tf": "M15",
+        "execution_tf": "M15"
+    },
+    "context": {
+        "day_type": "range_day",
+        "vol_regime": "normal",
+        "news_context": "none",
+        "htf_bias": "bullish",
+        "environment_notes": "Clean breakout from accumulation zone. Daily imbalance unfilled above acting as magnet. OTE setup at order block retest.",
+        "range": {
+            "prior_day_high": 1.17000,
+            "prior_day_low": 1.16500,
+            "asia_high": 1.16850,
+            "asia_low": 1.16650,
+            "terminus_level": 1.17230,
+            "prior_distribution_zone": [
+                1.16750,
+                1.16850
+            ],
+            "current_open": 1.16700
+        },
+        "liquidity_map": {
+            "buy_side_levels": [
+                {
+                    "price": 1.17230,
+                    "type": "daily_imbalance_midpoint"
+                },
+                {
+                    "price": 1.17000,
+                    "type": "psychological_level"
+                }
+            ],
+            "sell_side_levels": [
+                {
+                    "price": 1.16650,
+                    "type": "accumulation_zone_low"
+                },
+                {
+                    "price": 1.16500,
+                    "type": "prior_day_low"
+                }
+            ]
+        }
+    },
+    "pd_arrays": {
+        "htf_order_blocks": [
+            {
+                "direction": "bullish",
+                "tf": "H4",
+                "price_zone": [
+                    1.16700,
+                    1.16800
+                ],
+                "origin_description": "Last down-close candle before breakout from accumulation"
+            }
+        ],
+        "ltf_order_blocks": [
+            {
+                "direction": "bullish",
+                "tf": "M15",
+                "price_zone": [
+                    1.16750,
+                    1.16800
+                ],
+                "midpoint": 1.16775,
+                "mitigation_type": "failed_retest"
+            }
+        ],
+        "fair_value_gaps": [
+            {
+                "direction": "up",
+                "tf": "D1",
+                "price_zone": [
+                    1.17000,
+                    1.17230
+                ],
+                "status": "unfilled",
+                "notes": "Target imbalance - price never reached"
+            }
+        ],
+        "extensions": {
+            "cbdr_range": [
+                1.16700,
+                1.16850
+            ],
+            "cbdr_extensions": [
+                1.17000,
+                1.17230
+            ]
+        },
+        "discount_premium": {
+            "anchor_swing": [
+                1.16500,
+                1.17230
+            ],
+            "entry_in_discount": true,
+            "entry_discount_pct": 0.41
+        }
+    },
+    "setup": {
+        "bias": "long",
+        "setup_type": "OB_FVG_retrace",
+        "pattern_story": {
+            "structure": "breakout_from_accumulation",
+            "liquidity_objective": "daily_imbalance_fill",
+            "timing_model": "OTE_retest",
+            "session_model": "NY_AM_continuation"
+        },
+        "confirmation": {
+            "bos_or_choch": "breakout_from_range",
+            "displacement": true,
+            "volume_spike": false,
+            "entry_model": "limit_at_OB_50",
+            "extra_filters": [
+                "OTE_confluence",
+                "daily_imbalance_target",
+                "accumulation_breakout"
+            ]
+        }
+    },
+    "execution": {
+        "entry_price": 1.16800,
+        "stop_loss": 1.16666,
+        "risk_pips": 14,
+        "position_size_risk_pct": 1.5,
+        "max_adverse_excursion_pips": 14,
+        "max_favorable_excursion_pips": 8,
+        "targets": [
+            {
+                "label": "TP1_psychological",
+                "price": 1.17000,
+                "reason": "psychological_round_number",
+                "expected_rr": 1.4
+            },
+            {
+                "label": "TP2_daily_imbalance",
+                "price": 1.17230,
+                "reason": "daily_FVG_midpoint",
+                "expected_rr": 3.1
+            }
+        ]
+    },
+    "management": {
+        "partials": [],
+        "breakeven_move": "planned_after_TP1",
+        "trail_method": "none",
+        "final_outcome": {
+            "result": "loss",
+            "pnl_pips": -14,
+            "r_achieved": -1.0,
+            "exit_reason": "order_block_failed_to_hold"
+        }
+    },
+    "reasoning": {
+        "why_here": "Textbook OTE setup - price broke from accumulation zone, returned to test order block at optimal entry. Daily imbalance above provided clear target.",
+        "why_now": "NY AM session, clean breakout structure, retest complete. All ICT criteria met for long entry.",
+        "what_invalidates": "Break below order block invalidates bullish structure.",
+        "notes": "Setup was technically perfect by ICT methodology. Market simply didn't respect the order block on this occasion. Proper risk management meant only lost predetermined 14 pips. This is an A-grade setup that failed - happens even with best setups."
+    },
+    "labels": {
+        "is_valid_setup": true,
+        "quality_tag": "A",
+        "example_type": "negative",
+        "primary_concept": "OTE_setup",
+        "all_concepts": [
+            "OTE",
+            "order_block",
+            "breakout_retest",
+            "daily_imbalance",
+            "proper_risk_management"
+        ]
+    },
+    "failure_analysis": {
+        "root_cause": [
+            "order_block_failure",
+            "weak_institutional_sponsorship"
+        ],
+        "what_went_wrong": "Order block failed to hold as support. Price consolidated below OB instead of continuing up.",
+        "missed_clues": [
+            "Consolidation after breakout may have indicated weak institutional sponsorship",
+            "Lack of immediate momentum after OB tap suggested hesitation"
+        ],
+        "execution_errors": "None - trade executed per plan with proper risk management",
+        "psychological_errors": "None - remained disciplined and accepted predetermined loss",
+        "market_condition_mismatch": "Consolidation day rather than trend day - price wasn't ready to fill daily imbalance",
+        "lessons": [
+            "Perfect setups can fail - this is part of trading",
+            "Proper risk management protects capital when setups don't work",
+            "Consolidation after breakout is a warning sign of weak follow-through",
+            "Would repeat same setup - it was technically valid"
+        ],
+        "would_take_again": true,
+        "alternative_approach": "Could wait for stronger displacement after OB tap to confirm institutional sponsorship before entry",
+        "lesson_summary": "Even A-grade setups fail sometimes. This was a textbook OTE setup that the market didn't respect. The lesson is proper risk management and psychological discipline - not all valid setups work, and that's acceptable."
+    }
+}
