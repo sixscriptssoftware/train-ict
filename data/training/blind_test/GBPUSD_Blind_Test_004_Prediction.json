@@ -1,0 +1,16 @@
+{
+    "id": "GBPUSD_Blind_Test_004_Prediction",
+    "prediction": {
+        "bias": "Bearish (Reversal/Retracement)",
+        "dol": "Sellside Liquidity (Internal SSL) ~1.3380 or Discount OTE",
+        "setup_identified": "Liquidity Raid (Turtle Soup) + Rejection",
+        "reasoning": "Price rallied aggressively to sweep the clean Equal Highs (BSL) from Jan 13 (~1.3480). It pierced them (to ~1.3490) and immediately rejected with sharp displacement down. This signature (Run on Liquidity -> Rejection) suggests the objective of the move is complete. The algorithm typically reverses after a BSL sweep to seek Discount prices or Sellside Liquidity."
+    },
+    "technical_analysis": {
+        "market_structure": "H1 Bullish structure BUT recent Liquidity Sweep suggests reversal phase",
+        "pd_array_used": "Rejection Block / Liquidity Void",
+        "liquidity_target": "1.3380 (Internal Lows)"
+    },
+    "confidence": "High",
+    "outcome_verification": "Pending User Reveal"
+}
