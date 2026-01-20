@@ -19,6 +19,7 @@
     "conversation_id": "EURUSD_GBPUSD_BUY_01:20:26",
     "transcript_timestamps": ["0:00:01", "0:00:17", "0:00:56", "0:01:34", "0:01:52", "0:02:14"],
     "image_ids": ["frame_001", "frame_002", "frame_003", "frame_004", "frame_005", "frame_006"],
+    "screenshots": ["screenshots/training/positive/2026-01-20_LON_GBPUSD_OBFVG_001.png"],
     "chart_link": "",
     "session_video_clip": "journal/ashton/videos/2026-01-20_EURUSD_GBPUSD_BUY.mp4"
   },
