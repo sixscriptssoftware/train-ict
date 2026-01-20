@@ -1,0 +1,16 @@
+{
+    "id": "GBPJPY_Blind_Test_002_Prediction",
+    "prediction": {
+        "bias": "Bearish / Neutral-to-Bearish",
+        "dol": "Sellside Liquidity (SSL) below the consolidation range ~211.80",
+        "setup_identified": "Distribution / Liquidity Run on 'Lazy Longs'",
+        "reasoning": "Price has rallied aggressively and is now consolidating in Premium without a clear displacement higher. Unlike a bullish flag which usually drifts down into Discount, this is hovering sideways. This often signifies 'Distribution' or engineering liquidity below (Swing Lows) to be swept. I expect a breakdown to clear the Sellside Liquidity below this range before any true continuation can happen."
+    },
+    "technical_analysis": {
+        "market_structure": "H1 Bullish Trend but potential exhaustion (Consolidation in Premium)",
+        "pd_array_used": "Potential Rejection Block / Distribution Array",
+        "liquidity_target": "211.80 - 212.00 (Short term lows)"
+    },
+    "confidence": "Medium",
+    "outcome_verification": "Pending User Reveal"
+}

@@ -1,0 +1,16 @@
+{
+    "id": "GBPJPY_Blind_Test_003_Prediction",
+    "prediction": {
+        "bias": "Bullish",
+        "dol": "High of the Consolidation / Prior Swing High at ~213.20",
+        "setup_identified": "Market Structure Shift (MSS) + Discount Array Retest",
+        "reasoning": "We see a clear Low formed around Jan 8th. Price then rallied aggressively above the central consolidation midpoint (Market Structure Shift Bullish). It has now retraced down into what looks like a Discount Order Block / Breaker region. The structure is making Higher Highs and Higher Lows from the bottom. I am applying the lesson from Test 002: Momentum is UP, structure is shifting UP, so I will bet on CONTINUATION to the highs, not a reversal."
+    },
+    "technical_analysis": {
+        "market_structure": "Bullish Reversal / Shift from the Lows",
+        "pd_array_used": "Discount Order Block (Bullish)",
+        "liquidity_target": "213.20 (Buy Side Liquidity)"
+    },
+    "confidence": "High",
+    "outcome_verification": "Pending User Reveal"
+}

@@ -1,0 +1,12 @@
+{
+    "id": "GBPJPY_Blind_Test_002_CORRECTION",
+    "chart_context": "GBPJPY 15m - Strong Uptrend",
+    "vex_prediction": "Bearish Breakdown (Distribution)",
+    "actual_outcome": "Bullish Expansion (Re-Accumulation)",
+    "error_analysis": {
+        "primary_error": "Misidentified Re-Accumulation as Distribution",
+        "missed_clue": "High Resistance Liquidity Run. The lows were making Higher Lows (compression) rather than equal lows. Price was holding ABOVE the previous Bullish Order Block.",
+        "concept_correction": "Support Validation vs. Resistance. Price consolidating ABOVE a bullish PD array is acceptance of higher prices, not exhaustion. Do not bet on reversals without a clear Market Structure Shift.",
+        "future_rule": "IF Trend is UP and Price consolidates ABOVE a Bullish PD Array -> Assume Re-Accumulation. DO NOT predict a reversal until a Low is broken with displacement."
+    }
+}

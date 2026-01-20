@@ -1,0 +1,16 @@
+{
+    "id": "GBPUSD_Blind_Test_001_Prediction",
+    "prediction": {
+        "bias": "Bullish",
+        "dol": "Buyside Liquidity (BSL) at ~1.3480 (Equal Highs)",
+        "setup_identified": "Retracement into Discount Order Block / OTE",
+        "reasoning": "Price has completed a corrective retracement leg (down) following a strong impulsive move (up). The consolidation prior to the blackout suggests accumulation in a Discount zone. The 'clean' highs above at 1.3470-80 act as a magnet (Draw on Liquidity). I expect immediate expansion UP into that blacked-out area."
+    },
+    "technical_analysis": {
+        "market_structure": "H1 Bullish (Higher Highs, Higher Lows)",
+        "pd_array_used": "Bullish Order Block / Breaker support region at ~1.3400-1.3420",
+        "liquidity_target": "1.3480 (Swing Highs)"
+    },
+    "confidence": "High",
+    "outcome_verification": "Pending User Reveal"
+}

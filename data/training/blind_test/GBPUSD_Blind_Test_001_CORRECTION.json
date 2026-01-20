@@ -1,0 +1,12 @@
+{
+    "id": "GBPUSD_Blind_Test_001_CORRECTION",
+    "chart_context": "GBPUSD 1H - Jan 14-16 timeframe",
+    "vex_prediction": "Bullish (Targeting 1.3480 BSL)",
+    "actual_outcome": "Bearish Breakdown (Targeting 1.3380 SSL)",
+    "error_analysis": {
+        "primary_error": "Misinterpreted distribution as bullish retracement",
+        "missed_clue": "Failure Swing (Lower High) formed just before the drop. Market failed to displace above short-term structure.",
+        "concept_correction": "Inducement vs. Target. The equal highs at 1.3480 were engineered as inducement to trap longs. The slow bleed down was not a flag, but a slide into a heavy sell program.",
+        "future_rule": "IF price drifts down but FAILS to displace above the previous short-term high (Failure Swing), assume Bearish continuation, NOT bullish retracement."
+    }
+}

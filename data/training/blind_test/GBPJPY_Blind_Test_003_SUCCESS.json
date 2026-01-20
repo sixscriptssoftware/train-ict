@@ -1,0 +1,11 @@
+{
+    "id": "GBPJPY_Blind_Test_003_SUCCESS",
+    "chart_context": "GBPJPY H1 - Bullish Trend Continuation",
+    "vex_prediction": "Bullish (Correct)",
+    "actual_outcome": "Bullish Rally to 213.60+",
+    "success_analysis": {
+        "key_factor": "Respecting the Trend. Despite consolidation, price held above Discount Arrays.",
+        "entry_logic": "Retracement into Bullish Order Block (~211.00) -> Drop to LTF -> Wait for MSS -> Enter.",
+        "psychology_check": "Avoided checking for tops prematurely. Accepted that 'high' prices can go higher."
+    }
+}

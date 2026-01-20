@@ -1,0 +1,223 @@
+[
+  {
+    "id": "QA_CONCEPT_001",
+    "category": "Market Maker Models",
+    "question": "What is the primary difference between a Market Maker Buy Model (MMBM) and a Market Maker Sell Model (MMSM)?",
+    "options": {
+      "a": "MMBM has 3 legs up, MMSM has 3 legs down",
+      "b": "MMBM targets sellside liquidity, MMSM targets buyside liquidity",
+      "c": "MMBM starts with distribution, MMSM starts with accumulation",
+      "d": "There is no difference - they're the same model in opposite directions"
+    },
+    "correct_answer": "d",
+    "explanation": "MMBM and MMSM are the same model, just inverted. Both follow the same Manipulation -> Accumulation/Distribution -> 3-Leg Move structure. Understanding one means understanding both."
+  },
+  {
+    "id": "QA_CONCEPT_002",
+    "category": "Model Activation",
+    "question": "In the specific context of an 'Achilles' setup, what unique liquidity condition serves as the 'permission slip' to activate the model and validate the entry?",
+    "options": {
+      "a": "Price must retrace exactly to the 50% equilibrium",
+      "b": "Price must sweep both Buyside AND Sellside liquidity pools",
+      "c": "A Market Structure Shift (MSS) with Displacement must occur",
+      "d": "RSI must show divergence"
+    },
+    "correct_answer": "c",
+    "explanation": "While a sweep is a prerequisite context, the actual trigger/validation is the Displacement breaking structure. A sweep without displacement is just a stop run that might continue in the original direction."
+  },
+  {
+    "id": "QA_CONCEPT_003",
+    "category": "Timeframe Alignment",
+    "question": "If a 15-minute Accumulation Zone doesn't line up perfectly with a prior 15-minute Displacement Zone, what resolves this conflict?",
+    "options": {
+      "a": "The market is bearish",
+      "b": "The LTF is servant to the HTF; a valid HTF (1H) zone overrides LTF noise",
+      "c": "It is a Seek and Destroy profile",
+      "d": "The Judas Swing was insufficient"
+    },
+    "correct_answer": "b",
+    "explanation": "Higher Timeframe (HTF) structure dictates Lower Timeframe (LTF) delivery. A mess on the 15m is often irrelevant if the 1H or 4H PD Array is valid and holding."
+  },
+  {
+    "id": "QA_CONCEPT_004",
+    "category": "Risk Management",
+    "question": "What is the core mechanism of 'Position Cycling' that allows for safe aggressive growth?",
+    "options": {
+      "a": "Martingale sizing",
+      "b": "Taking partials to bank risk, then re-deploying that risk capital into the next entry",
+      "c": "Holding full positions for maximum R:R",
+      "d": "Hedging with short positions"
+    },
+    "correct_answer": "b",
+    "explanation": "Position Cycling uses 'banked risk' to fund subsequent trades. By taking partials and moving stops to Breakeven, you free up risk exposure to take the next setup in the sequence."
+  },
+  {
+    "id": "QA_CONCEPT_005",
+    "category": "Order Block Validation",
+    "question": "Which reaction signature best confirms an Order Block has strong Institutional Sponsorship?",
+    "options": {
+      "a": "Price trades sideways at the level",
+      "b": "Price wicks through the mean threshold",
+      "c": "Price touches and IMMEDIATELY displaces away with speed",
+      "d": "Price retests the level multiple times"
+    },
+    "correct_answer": "c",
+    "explanation": "Speed is truth. Aggressive displacement away from a level indicates institutions are defending it and do not want to offer that price anymore. Consolidation (hesitation) suggests weak sponsorship."
+  },
+  {
+    "id": "QA_CONCEPT_006",
+    "category": "Setup Types",
+    "question": "Why is the 'Unicorn' setup (OB inside FVG) considered high probability?",
+    "options": {
+      "a": "Because it traps retail traders",
+      "b": "Because it brackets price",
+      "c": "It just works better",
+      "d": "The FVG (Magnet) pulls price in, and the OB (Shield) repels it, creating a precise reaction point"
+    },
+    "correct_answer": "d",
+    "explanation": "It combines two institutional signatures: the necessity to rebalance inefficiencies (FVG) and the defensive footprint of a prior position (OB)."
+  },
+  {
+    "id": "QA_CONCEPT_007",
+    "category": "Market Profiles",
+    "question": "What is the specific function of a Judas Swing in a Buy Profile?",
+    "options": {
+      "a": "To break the previous day's high",
+      "b": "To fake a move UP",
+      "c": "To fake a move DOWN (below opening) to sweep sellside liquidity and induce shorts",
+      "d": "To create consolidation"
+    },
+    "correct_answer": "c",
+    "explanation": "The Judas Swing is the false move against the intended daily direction. In a Buy profile, it is the initial drop below the opening price to trap bears before the reversal."
+  },
+  {
+    "id": "QA_CONCEPT_008",
+    "category": "Dealing Range",
+    "question": "Why is it dangerous to Short in a Discount zone?",
+    "options": {
+      "a": "Algorithms don't book profits there",
+      "b": "Smart Money accumulates (buys) in Discount; they do not initiate Short programs there",
+      "c": "Volatility is too low",
+      "d": "Spreads are wider"
+    },
+    "correct_answer": "b",
+    "explanation": "The algorithm's pricing engine is binary: Premium is for Selling, Discount is for Buying. Initiating shorts in Discount fights the core logic of the market maker."
+  },
+  {
+    "id": "QA_PROFILES_001",
+    "category": "Weekly Profiles",
+    "question": "In strict ICT theory, if the Monday range is small and consolidates (resembling a 'doji'), what is the statistically highly probable behavior for Tuesday?",
+    "options": {
+      "a": "Tuesday will also consolidate",
+      "b": "Tuesday likely forms the High or Low of the Week (Classic Tuesday Reversal)",
+      "c": "Tuesday is a seek-and-destroy day",
+      "d": "Tuesday will trade strictly within Monday's range"
+    },
+    "correct_answer": "b",
+    "explanation": "This is the 'Classic Tuesday Reversal' profile. Monday consolidation induces traders into a range-bound mindset. Tuesday often engineers liquidity (Judas Swing) to establish the weekly extreme (HOW/LOW) before the true weekly expansion begins."
+  },
+  {
+    "id": "QA_EXECUTION_001",
+    "category": "Risk Management",
+    "question": "What is the primary indicator of weak institutional sponsorship at an Order Block?",
+    "options": {
+      "a": "RSI Divergence",
+      "b": "Consolidation immediately after testing the level",
+      "c": "High volume spike",
+      "d": "Retesting the level 3 times"
+    },
+    "correct_answer": "b",
+    "explanation": "Consolidation = Hesitation. Strong institutional sponsorship is characterized by immediate and energetic displacement away from the level (Speed is Truth)."
+  },
+  {
+    "id": "QA_PSYCHOLOGY_001",
+    "category": "Psychology & Risk",
+    "question": "You have just hit a 3-trade losing streak and your entries have been sloppy. What is the most effective immediate adjustment?",
+    "options": {
+      "a": "Increase risk to recover fast",
+      "b": "Pause & Reset (stop trading for 24-48h)",
+      "c": "Halve risk immediately",
+      "d": "Switch trading models"
+    },
+    "correct_answer": "b",
+    "explanation": "Sloppy entries indicate psychological degradation. Mathematical solutions (reducing size) don not fix psychological problems. You must stop the bleeding and preserve Mental Capital first."
+  },
+  {
+    "id": "QA_EXECUTION_002",
+    "category": "Market Structure (Fractals)",
+    "question": "Price is approaching a perfect H4 Order Block, but the M15 structure is still bearish. What must you wait for?",
+    "options": {
+      "a": "H4 candle close",
+      "b": "M15 Market Structure Shift (MSS) bullishly confirming the H4 level",
+      "c": "M15 RSI oversold",
+      "d": "Place limit immediately"
+    },
+    "correct_answer": "b",
+    "explanation": "HTF provides location (POI), LTF provides timing. You must wait for the LTF to align with the HTF view via a Market Structure Shift. Entering before this is catching a falling knife."
+  },
+  {
+    "id": "QA_ALGO_001",
+    "category": "Algorithmic Theory",
+    "question": "Why do we project Standard Deviations (SD 1.0, 2.0, 2.5) from the Central Bank Dealers Range (CBDR)?",
+    "options": {
+      "a": "Algorithmic pricing models use the \"float\" created during low-volume accumulation hours to calculate the magnitude of the high-volume range expansion",
+      "b": "Standard deviation is a popular retail indicator",
+      "c": "The Asian Session is meaningless",
+      "d": "Central banks announce rate targets at 2:00 AM"
+    },
+    "correct_answer": "a",
+    "explanation": "The algorithm measures the manipulation/accumulation phase (the initial range) to systematically engineer the expansion. The range is the \"float\"; the expansion is a multiple of that float (Standard Deviations)."
+  },
+  {
+    "id": "QA_DOL_001",
+    "category": "Logic Chains",
+    "question": "IF Weekly DOL is Bullish (post-sweep) and Price is at a Daily Bullish OB, THEN what is the Setup on the M15?",
+    "options": {
+      "a": "Breakdown of M15 Low",
+      "b": "M15 Market Structure Shift (Bullish) with FVG in Killzone",
+      "c": "Turtle Soup Short",
+      "d": "Market market buy at Open"
+    },
+    "correct_answer": "b",
+    "explanation": "This is the standard Top-Down alignment. Weekly provides direction, Daily provides support, M15 provides the trigger/entry via the 2022 Model (MSS + FVG)."
+  },
+  {
+    "id": "QA_DOL_002",
+    "category": "Bias Invalidation",
+    "question": "IF your Bullish DOL (Equal Highs) is swept and price breaks down, THEN what happens to your Bullish Bias?",
+    "options": {
+      "a": "Remains Bullish (breakout mode)",
+      "b": "Terminated/Neutralized; the objective is met, expect Reversal/Retracement",
+      "c": "Becomes extremely Bullish",
+      "d": "Buy the dip immediately"
+    },
+    "correct_answer": "b",
+    "explanation": "Once the Draw on Liquidity is met, the algorithmic reason for the move is finished. The bias is neutralized until a new DOL is established. Continuing to buy after the objective is met is chasing."
+  },
+  {
+    "id": "QA_PD_ARRAY_001",
+    "category": "PD Arrays - If/Then",
+    "question": "IF price blasts through a bearish OB (Stop Hunt) creating a Higher High, THEN immediately breaks down below the OB, what does that failed OB become?",
+    "options": {
+      "a": "Inversion FVG",
+      "b": "Mitigation Block",
+      "c": "Bearish Breaker Block",
+      "d": "Propulsion Block"
+    },
+    "correct_answer": "c",
+    "explanation": "The sequence Low -> High -> Higher High (Stop Hunt) -> Breakdown defines a Bearish Breaker. It is highly probable because it has trapped buyers at the top."
+  },
+  {
+    "id": "QA_SMT_001",
+    "category": "Intermarket Analysis",
+    "question": "IF DXY makes a Lower High (failure) while EURUSD makes a Lower Low and GBPUSD makes a Higher Low (refusal to drop), what is the signal?",
+    "options": {
+      "a": "Market Confusion",
+      "b": "Smart Money Accumulation (Bullish Reversal)",
+      "c": "Smart Money Distribution (Bearish)",
+      "d": "Noise"
+    },
+    "correct_answer": "b",
+    "explanation": "Symmetric Market Triangle (SMT) Divergence. DXY weakness (Lower High) combined with relative strength in a pair (GBP Higher Low) indicates institutional accumulation preventing the drop."
+  }
+]
