@@ -79,6 +79,72 @@
         "asia_pips": { "type": "number" }
       }
     },
+    "multi_tf": {
+      "type": "object",
+      "description": "Multi-timeframe analysis context",
+      "properties": {
+        "htf_analysis": {
+          "type": "object",
+          "description": "Daily/4H structure",
+          "properties": {
+            "timeframe": { "type": "string", "enum": ["D", "4H"] },
+            "bias": { "type": "string", "enum": ["bullish", "bearish", "neutral"] },
+            "zone": { "type": "string", "enum": ["premium", "discount", "equilibrium"] },
+            "major_ob": { "type": "number" },
+            "terminus": { "type": "number" },
+            "weekly_range_context": { "type": "string" }
+          }
+        },
+        "mtf_bridge": {
+          "type": "object",
+          "description": "1H/15M refinement",
+          "properties": {
+            "timeframe": { "type": "string", "enum": ["1H", "15M"] },
+            "refined_zone_high": { "type": "number" },
+            "refined_zone_low": { "type": "number" },
+            "session_structure": { "type": "string" },
+            "fvg_cluster": { "type": "boolean" }
+          }
+        },
+        "ltf_execution": {
+          "type": "object",
+          "description": "5M/1M confirmation",
+          "properties": {
+            "timeframe": { "type": "string", "enum": ["5M", "1M"] },
+            "entry_ob": { "type": "number" },
+            "entry_fvg_high": { "type": "number" },
+            "entry_fvg_low": { "type": "number" },
+            "structure_shift_confirmed": { "type": "boolean" }
+          }
+        },
+        "alignment_state": {
+          "type": "string",
+          "enum": ["full", "partial", "none"],
+          "description": "How aligned are all timeframes"
+        }
+      }
+    },
+    "session_context": {
+      "type": "object",
+      "description": "Session and timing context",
+      "properties": {
+        "session": {
+          "type": "string",
+          "enum": ["asia", "london", "ny_am", "ny_pm", "london_close"]
+        },
+        "killzone": {
+          "type": "string",
+          "enum": ["london_open", "ny_open", "cme_open", "london_close", "none"]
+        },
+        "day_flow": {
+          "type": "string",
+          "description": "How did sessions behave today?",
+          "examples": ["Asia tight, London broke high", "London overextended, NY reversing"]
+        },
+        "judas_occurred": { "type": "boolean" },
+        "asia_range_broken": { "type": "string", "enum": ["high", "low", "both", "none"] }
+      }
+    },
     "entry": {
       "type": "object",
       "description": "Entry details",
@@ -162,6 +228,41 @@
         "risk_percent": { "type": "number" }
       }
     },
+    "trade_management": {
+      "type": "object",
+      "description": "How the trade was managed",
+      "properties": {
+        "risk_model": {
+          "type": "string",
+          "enum": ["fixed_percent", "fixed_dollar"],
+          "description": "Risk calculation method"
+        },
+        "partial_strategy": {
+          "type": "string",
+          "enum": ["scale_out", "all_or_nothing"],
+          "description": "How exits are planned"
+        },
+        "management_events": {
+          "type": "array",
+          "description": "Timeline of management decisions",
+          "items": {
+            "type": "object",
+            "properties": {
+              "time": { "type": "string" },
+              "action": { 
+                "type": "string",
+                "enum": ["partial_close", "move_to_be", "trail_stop", "add_position", "close_all", "invalidated"]
+              },
+              "price": { "type": "number" },
+              "percent_closed": { "type": "number" },
+              "reason": { "type": "string" }
+            }
+          }
+        },
+        "be_triggered": { "type": "boolean" },
+        "partials_taken": { "type": "number" }
+      }
+    },
     "outcome": {
       "type": "object",
       "properties": {
@@ -169,11 +270,72 @@
           "type": "string",
           "enum": ["open", "win", "loss", "breakeven"]
         },
+        "outcome_tag": {
+          "type": "string",
+          "enum": ["win_tp", "win_partials", "win_manual", "breakeven", "loss_structure", "loss_stop", "loss_mistake"],
+          "description": "Specific outcome classification"
+        },
         "exit_price": { "type": "number" },
         "exit_time": { "type": "string" },
         "pnl_dollars": { "type": "number" },
         "pnl_pips": { "type": "number" },
         "r_achieved": { "type": "number" }
+      }
+    },
+    "narrative": {
+      "type": "object",
+      "description": "Trade reasoning in plain English",
+      "properties": {
+        "why_here": {
+          "type": "string",
+          "description": "Why is this price level significant?",
+          "examples": ["Liquidity above equal highs into HTF premium OB", "50% of unmitigated 4H FVG at ASIA SD"]
+        },
+        "why_now": {
+          "type": "string",
+          "description": "Why is this the right moment?",
+          "examples": ["London open Judas into discount OB", "Post-CPI sweep of stops into HTF demand"]
+        },
+        "what_would_kill_it": {
+          "type": "string",
+          "description": "What invalidates this thesis?",
+          "examples": ["HTF low taken + close below 15M OB", "Correlation pair makes new low"]
+        }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "description": "Market environment flags",
+      "properties": {
+        "vol_regime": {
+          "type": "string",
+          "enum": ["high", "normal", "low"],
+          "description": "Volatility environment"
+        },
+        "news_context": {
+          "type": "object",
+          "properties": {
+            "impact_level": { 
+              "type": "string", 
+              "enum": ["high_impact", "medium_impact", "low_impact", "none"] 
+            },
+            "event_name": { "type": "string" },
+            "timing": { 
+              "type": "string", 
+              "enum": ["pre_news", "post_news", "during_news", "no_news"] 
+            }
+          }
+        },
+        "day_type": {
+          "type": "string",
+          "enum": ["trend", "range", "reversal", "unknown"],
+          "description": "What type of day was it?"
+        },
+        "correlation_status": {
+          "type": "string",
+          "enum": ["aligned", "divergent", "neutral"],
+          "description": "Are correlated pairs confirming?"
+        }
       }
     },
     "notes": {
@@ -204,6 +366,33 @@
       "type": "array",
       "items": { "type": "string" },
       "description": "Paths to chart screenshots"
+    },
+    "is_valid_setup": {
+      "type": "boolean",
+      "description": "True = valid trade, False = anti-example/bad setup"
+    },
+    "anti_pattern": {
+      "type": "object",
+      "description": "If is_valid_setup=false, describe why",
+      "properties": {
+        "pattern_type": {
+          "type": "string",
+          "enum": ["false_ob", "chased_move", "asia_breakout_trap", "fvg_already_mitigated", "fighting_htf", "news_gamble", "revenge_trade", "overtrading"],
+          "description": "What anti-pattern was this?"
+        },
+        "looked_like": {
+          "type": "string",
+          "description": "What made it look like a valid setup?"
+        },
+        "problem": {
+          "type": "string",
+          "description": "Why it wasn't actually valid"
+        },
+        "lesson": {
+          "type": "string",
+          "description": "What to learn from this"
+        }
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 # ICT Trading Ontology - Standard Vocabulary
 # All scripts/analysis must use these exact terms and definitions
 
-version: "1.0"
+version: "2.0"
 updated: "2026-01-20"
 
 # =============================================================================
@@ -248,3 +248,212 @@ validation:
   
   fvg_invalid:
     condition: "Mitigated - price already touched 50%"
+
+# =============================================================================
+# MULTI-TIMEFRAME HIERARCHY
+# =============================================================================
+timeframe_hierarchy:
+  htf_bias:
+    timeframes: ["D", "4H"]
+    purpose: "Determine overall direction"
+    identifies: ["premium_discount", "major_ob", "terminus", "weekly_range"]
+    rule: "Trade WITH HTF bias, never against"
+  
+  mtf_bridge:
+    timeframes: ["1H", "15M"]
+    purpose: "Refine HTF zones into tradeable areas"
+    identifies: ["intermediate_structure", "refined_ob", "session_range", "fvg_clusters"]
+    rule: "Must align with HTF, provides entry zones"
+  
+  ltf_execution:
+    timeframes: ["5M", "1M"]
+    purpose: "Precise entry timing and confirmation"
+    identifies: ["micro_structure", "entry_ob", "entry_fvg", "confirmation_shift"]
+    rule: "Execute here only when MTF/HTF aligned"
+  
+  alignment_states:
+    full_alignment: "All TFs pointing same direction - highest probability"
+    partial_alignment: "HTF clear, MTF developing - wait or reduced size"
+    no_alignment: "Conflicting signals - no trade"
+
+# =============================================================================
+# SESSION BEHAVIOR PATTERNS
+# =============================================================================
+session_behaviors:
+  asia:
+    typical_action: "Sets the range for the day"
+    characteristics: ["consolidation", "range_formation", "liquidity_building"]
+    trap_type: "False breakouts that London reverses"
+    trade_bias: "Mark levels, don't trade breakouts"
+  
+  london:
+    typical_action: "Expansion - breaks Asia range"
+    characteristics: ["judas_swing", "true_direction_reveal", "liquidity_sweep"]
+    trap_type: "Judas at open traps counter-trend"
+    trade_bias: "Trade with the move after Judas"
+  
+  ny_am:
+    typical_action: "Continues London OR reverses if extended"
+    characteristics: ["continuation", "reversal_if_overextended", "news_volatility"]
+    trap_type: "News spike reversals"
+    trade_bias: "If London trend intact, continue; else wait"
+  
+  ny_pm:
+    typical_action: "Consolidation or final push to daily target"
+    characteristics: ["profit_taking", "final_distribution", "range_return"]
+    trap_type: "Late day fakeouts"
+    trade_bias: "Partials or stay out unless clear structure"
+  
+  day_flow_pattern:
+    normal: "Asia accumulates → London manipulates → NY distributes"
+    reversal: "London overextends → NY reverses to Asia range"
+    trend: "Asia tight → London/NY same direction = trend day"
+
+# =============================================================================
+# TRADE MANAGEMENT
+# =============================================================================
+trade_management:
+  risk_models:
+    fixed_percent:
+      description: "Risk X% of account per trade"
+      typical: "0.5% - 2%"
+    
+    fixed_dollar:
+      description: "Risk fixed $ amount"
+      use_case: "Prop firm daily loss limits"
+  
+  partial_strategies:
+    scale_out:
+      description: "Close portions at targets"
+      example: "50% at 2R, 25% at 3R, 25% runner"
+    
+    all_or_nothing:
+      description: "Full position to target or stop"
+      use_case: "When high conviction + tight stop"
+  
+  stop_management:
+    initial: "Set at invalidation level"
+    breakeven: "Move to entry after 1R achieved (optional)"
+    trailing: "Move below/above new swing points"
+    never: "Never widen stop - only tighten or leave"
+  
+  outcome_tags:
+    win_tp: "Hit take profit target"
+    win_partials: "Closed in profit via partial exits"
+    win_manual: "Closed early for profit (structure shift)"
+    breakeven: "Moved stop to entry, got stopped"
+    loss_structure: "Lost due to structure shift against"
+    loss_stop: "Clean stop hit at invalidation"
+    loss_mistake: "Loss due to rule violation"
+
+# =============================================================================
+# NARRATIVE REASONING
+# =============================================================================
+narrative_reasoning:
+  why_here:
+    description: "Why is THIS price level significant?"
+    examples:
+      - "Liquidity above equal highs into HTF premium OB"
+      - "50% of unmitigated 4H FVG at ASIA SD"
+      - "15M OB formed at prior distribution zone"
+  
+  why_now:
+    description: "Why is THIS moment the right time?"
+    examples:
+      - "London open Judas into discount OB"
+      - "NY AM continuation, Asia range broken clean"
+      - "Post-CPI sweep of stops into HTF demand"
+  
+  what_would_kill_it:
+    description: "What invalidates this thesis?"
+    examples:
+      - "HTF low taken + body close below 15M OB"
+      - "Price returns below origination displacement"
+      - "Correlation pair (GBPJPY) makes new low"
+
+# =============================================================================
+# ANTI-PATTERNS (What NOT to trade)
+# =============================================================================
+anti_patterns:
+  false_ob:
+    looks_like: "Order block formed before move"
+    problem: "No displacement after - just consolidation"
+    lesson: "OB requires displacement to validate"
+  
+  chased_move:
+    looks_like: "Entered after missing retrace"
+    problem: "No return to PD array, extended price"
+    lesson: "If you miss it, wait for next setup"
+  
+  asia_breakout_trap:
+    looks_like: "Breakout of Asia range before London"
+    problem: "Often retraces into range during London"
+    lesson: "Don't trade Asia breakouts, wait for London"
+  
+  fvg_already_mitigated:
+    looks_like: "FVG touched but didn't hold"
+    problem: "Already served its purpose, spent"
+    lesson: "Once mitigated, FVG is used up"
+  
+  fighting_htf:
+    looks_like: "LTF setup against HTF bias"
+    problem: "Counter-trend scalp with bad odds"
+    lesson: "LTF must promote HTF, never oppose"
+  
+  news_gamble:
+    looks_like: "Entry right before high-impact news"
+    problem: "Stop hunted both directions"
+    lesson: "Wait for news spike, then assess structure"
+  
+  revenge_trade:
+    looks_like: "Immediate re-entry after stop loss"
+    problem: "Emotional, not structural justification"
+    lesson: "If structure invalidated, wait for NEW setup"
+  
+  overtrading:
+    looks_like: "3+ trades same session without edge"
+    problem: "Forcing setups that don't exist"
+    lesson: "One good trade > five mediocre trades"
+
+# =============================================================================
+# ENVIRONMENT & REGIME
+# =============================================================================
+environment:
+  volatility_regime:
+    high:
+      description: "VIX elevated, news-driven, wide ranges"
+      adjustment: "Wider stops, smaller size, faster targets"
+    normal:
+      description: "Standard market conditions"
+      adjustment: "Standard playbook applies"
+    low:
+      description: "Compressed ranges, slow grind"
+      adjustment: "Avoid or use tighter targets"
+  
+  news_context:
+    high_impact:
+      events: ["FOMC", "NFP", "CPI", "Rate Decision"]
+      rule: "No new entries 30 min before/after"
+      opportunity: "Post-news structure can be clean"
+    medium_impact:
+      events: ["PMI", "Retail Sales", "GDP"]
+      rule: "Reduce size, widen stops"
+    low_impact:
+      rule: "Trade normally"
+  
+  day_types:
+    trend_day:
+      characteristics: "One direction, minimal pullbacks"
+      action: "Hold runners, add on pullbacks"
+    range_day:
+      characteristics: "Chop between levels, no follow-through"
+      action: "Fade extremes, quick targets"
+    reversal_day:
+      characteristics: "Strong move then full retracement"
+      action: "Take profits, don't assume continuation"
+  
+  regime_flags:
+    - vol_regime: ["high", "normal", "low"]
+    - news_today: ["high_impact", "medium_impact", "none"]
+    - day_type: ["trend", "range", "reversal", "unknown"]
+    - correlation: ["aligned", "divergent", "neutral"]
