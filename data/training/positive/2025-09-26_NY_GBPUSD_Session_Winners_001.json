@@ -1,0 +1,163 @@
+{
+  "id": "2025-09-26_NY_GBPUSD_Session_Winners_001",
+  
+  "meta": {
+    "author": "Ashton",
+    "created_at": "2026-01-20T13:06:00Z",
+    "version": "1.0",
+    "tags": ["session_perfect", "4_of_4_winners", "position_cycling", "FVG_mastery", "prop_firm"]
+  },
+
+  "market": {
+    "pair": "GBPUSD",
+    "instrument_type": "FX",
+    "broker_feed": "OANDA",
+    "spread_pips": 1.0
+  },
+
+  "references": {
+    "conversation_id": "",
+    "transcript_timestamps": [],
+    "image_ids": ["GBPUSD_2025-09-26_winners"],
+    "screenshots": ["screenshots/training/positive/2025-09-26_NY_GBPUSD_Winners_001.png"],
+    "chart_link": "",
+    "session_video_clip": ""
+  },
+
+  "time": {
+    "date": "2025-09-26",
+    "session": "NewYork",
+    "killzone": "NY_PM",
+    "entry_timestamp": "2025-09-26T15:00:00Z",
+    "exit_timestamp": "2025-09-26T20:00:00Z",
+    "htf_tf": "H4",
+    "mtf_tf": "H1",
+    "ltf_tf": "M15",
+    "execution_tf": "M15"
+  },
+
+  "context": {
+    "day_type": "trend_day",
+    "vol_regime": "normal",
+    "news_context": "none",
+    "htf_bias": "bullish",
+    "environment_notes": "Perfect execution day - 4/4 winners using FVG 50% entries with position cycling. Demonstrated complete mastery of ICT FVG methodology.",
+    "range": {
+      "prior_day_high": 1.3450,
+      "prior_day_low": 1.3380,
+      "asia_high": 1.3420,
+      "asia_low": 1.3395,
+      "terminus_level": 1.3460,
+      "prior_distribution_zone": [1.3400, 1.3420],
+      "current_open": 1.3405
+    },
+    "liquidity_map": {
+      "buy_side_levels": [
+        {"price": 1.3450, "type": "equal_highs"},
+        {"price": 1.3460, "type": "daily_target"}
+      ],
+      "sell_side_levels": [
+        {"price": 1.3395, "type": "asia_low"},
+        {"price": 1.3380, "type": "prior_day_low"}
+      ]
+    }
+  },
+
+  "pd_arrays": {
+    "htf_order_blocks": [],
+    "ltf_order_blocks": [],
+    "fair_value_gaps": [
+      {
+        "direction": "up",
+        "tf": "M15",
+        "price_zone": [1.3410, 1.3420],
+        "status": "respected_multiple_times",
+        "notes": "Multi-timeframe FVG confluence - used for all 4 entries"
+      }
+    ],
+    "extensions": {
+      "cbdr_range": [1.3400, 1.3420],
+      "cbdr_extensions": [1.3440, 1.3460]
+    },
+    "discount_premium": {
+      "anchor_swing": [1.3380, 1.3460],
+      "entry_in_discount": true,
+      "entry_discount_pct": 0.38
+    }
+  },
+
+  "setup": {
+    "bias": "long",
+    "setup_type": "FVG_entry",
+    "pattern_story": {
+      "structure": "multi_timeframe_FVG_confluence",
+      "liquidity_objective": "daily_highs_buyside",
+      "timing_model": "NY_PM_3_5_window",
+      "session_model": "position_cycling_protocol"
+    },
+    "confirmation": {
+      "bos_or_choch": "H4_BOS_up",
+      "displacement": true,
+      "volume_spike": false,
+      "entry_model": "FVG_OB_confluence",
+      "extra_filters": ["50%_FVG_reaction", "multi_TF_alignment", "NY_PM_timing"]
+    }
+  },
+
+  "execution": {
+    "entry_price": 1.3415,
+    "stop_loss": 1.3405,
+    "risk_pips": 10,
+    "position_size_risk_pct": 1.0,
+    "max_adverse_excursion_pips": 5,
+    "max_favorable_excursion_pips": 45,
+    "targets": [
+      {
+        "label": "TP1_FVG_target",
+        "price": 1.3440,
+        "reason": "next_FVG_zone",
+        "expected_rr": 2.5
+      },
+      {
+        "label": "TP2_daily_high",
+        "price": 1.3460,
+        "reason": "buyside_liquidity",
+        "expected_rr": 4.5
+      }
+    ]
+  },
+
+  "management": {
+    "partials": [
+      {"at": "TP1", "pct_close": 50},
+      {"at": "new_FVG", "pct_close": 25},
+      {"at": "TP2", "pct_close": 25}
+    ],
+    "breakeven_move": "after_TP1",
+    "trail_method": "position_cycling",
+    "final_outcome": {
+      "result": "win",
+      "pnl_pips": 45,
+      "pnl_usd": 189.49,
+      "r_achieved": 4.5,
+      "exit_reason": "all_4_trades_hit_targets"
+    }
+  },
+
+  "reasoning": {
+    "why_here": "Multi-timeframe FVG alignment at discount. All 4 entries used 50% FVG retracement - textbook ICT methodology.",
+    "why_now": "NY PM session (3-5 PM window) - historically strong for GBPUSD. Position cycling protocol allowed 4 separate entries as new FVGs formed.",
+    "what_invalidates": "Break below asia low would invalidate bullish bias.",
+    "notes": "PERFECT SESSION - 4/4 winners, 85.7% win rate, +$189.49. This demonstrates complete mastery of FVG methodology and position cycling. Every entry respected the 50% FVG rule with institutional reactions."
+  },
+
+  "labels": {
+    "is_valid_setup": true,
+    "quality_tag": "A_plus",
+    "example_type": "positive",
+    "primary_concept": "FVG_mastery",
+    "all_concepts": ["FVG", "position_cycling", "50%_consequent_encouragement", "multi_timeframe", "NY_PM_session"]
+  },
+
+  "failure_analysis": null
+}
