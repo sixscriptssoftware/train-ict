@@ -1,0 +1,223 @@
+{
+    "id": "2022-02-25_NY_UNKNOWN_MultiPlayFVG_001",
+    "meta": {
+        "author": "ICT_Student",
+        "created_at": "2022-02-25T12:23:26Z",
+        "version": "1.0",
+        "tags": [
+            "educational_analysis",
+            "multi_play_strategy",
+            "FVG_mastery",
+            "DIS_ACC_zones",
+            "Judas_swings",
+            "HTF_LTF_correlation"
+        ]
+    },
+    "market": {
+        "pair": "Unknown",
+        "instrument_type": "FX",
+        "broker_feed": "TradingView",
+        "spread_pips": 1.0
+    },
+    "references": {
+        "conversation_id": "",
+        "transcript_timestamps": [],
+        "image_ids": [
+            "2022-02-25_multiplay_001",
+            "2022-02-25_multiplay_002",
+            "2022-02-25_multiplay_003",
+            "2022-02-25_multiplay_004",
+            "2022-02-25_multiplay_005",
+            "2022-02-25_multiplay_006",
+            "2022-02-25_multiplay_007",
+            "2022-02-25_multiplay_008",
+            "2022-02-25_multiplay_009"
+        ],
+        "screenshots": [
+            "screenshots/training/positive/2022-02-25_MultiPlay_FVG_Analysis_001.png",
+            "screenshots/training/positive/2022-02-25_MultiPlay_FVG_Analysis_002.png",
+            "screenshots/training/positive/2022-02-25_MultiPlay_FVG_Analysis_003.png",
+            "screenshots/training/positive/2022-02-25_MultiPlay_FVG_Analysis_004.png",
+            "screenshots/training/positive/2022-02-25_MultiPlay_FVG_Analysis_005.png",
+            "screenshots/training/positive/2022-02-25_MultiPlay_FVG_Analysis_006.png",
+            "screenshots/training/positive/2022-02-25_MultiPlay_FVG_Analysis_007.png",
+            "screenshots/training/positive/2022-02-25_MultiPlay_FVG_Analysis_008.png",
+            "screenshots/training/positive/2022-02-25_MultiPlay_FVG_Analysis_009.png"
+        ],
+        "chart_link": "",
+        "session_video_clip": ""
+    },
+    "time": {
+        "date": "2022-02-25",
+        "session": "NewYork",
+        "killzone": "NY_AM",
+        "entry_timestamp": "2022-02-25T13:00:00Z",
+        "exit_timestamp": "2022-02-25T18:00:00Z",
+        "htf_tf": "H4",
+        "mtf_tf": "H1",
+        "ltf_tf": "M15",
+        "execution_tf": "M5"
+    },
+    "context": {
+        "day_type": "trend_day",
+        "vol_regime": "normal",
+        "news_context": "none",
+        "htf_bias": "bullish",
+        "environment_notes": "Educational analysis showing multi-play strategy development. Demonstrates DIS3/ACC zone identification, Judas swing recognition, and FVG fill setups across HTF/LTF timeframes. Shows thought process evolution over 1-hour analysis period.",
+        "range": {
+            "prior_day_high": 0,
+            "prior_day_low": 0,
+            "asia_high": 0,
+            "asia_low": 0,
+            "terminus_level": 0,
+            "prior_distribution_zone": [
+                0,
+                0
+            ],
+            "current_open": 0
+        },
+        "liquidity_map": {
+            "buy_side_levels": [
+                {
+                    "price": 0,
+                    "type": "HTF_liquidity_target"
+                }
+            ],
+            "sell_side_levels": []
+        }
+    },
+    "pd_arrays": {
+        "htf_order_blocks": [
+            {
+                "direction": "bullish",
+                "tf": "H4",
+                "price_zone": [
+                    0,
+                    0
+                ],
+                "origin_description": "HTF Prior Zone - used for multi-play scenarios"
+            }
+        ],
+        "ltf_order_blocks": [
+            {
+                "direction": "bullish",
+                "tf": "M15",
+                "price_zone": [
+                    0,
+                    0
+                ],
+                "midpoint": 0,
+                "mitigation_type": "respected"
+            }
+        ],
+        "fair_value_gaps": [
+            {
+                "direction": "up",
+                "tf": "H4",
+                "price_zone": [
+                    0,
+                    0
+                ],
+                "status": "filled",
+                "notes": "HTF FVG used as entry zone for multiple plays"
+            },
+            {
+                "direction": "up",
+                "tf": "M15",
+                "price_zone": [
+                    0,
+                    0
+                ],
+                "status": "respected",
+                "notes": "LTF FVG inside HTF prior zone - key for Play 1"
+            }
+        ],
+        "extensions": {
+            "cbdr_range": [
+                0,
+                0
+            ],
+            "cbdr_extensions": [
+                0,
+                0
+            ]
+        },
+        "discount_premium": {
+            "anchor_swing": [
+                0,
+                0
+            ],
+            "entry_in_discount": true,
+            "entry_discount_pct": 0.4
+        }
+    },
+    "setup": {
+        "bias": "long",
+        "setup_type": "OB_FVG_confluence",
+        "pattern_story": {
+            "structure": "multi_play_analysis",
+            "liquidity_objective": "HTF_liquidity_above",
+            "timing_model": "DIS3_into_ACC_zones",
+            "session_model": "educational_framework"
+        },
+        "confirmation": {
+            "bos_or_choch": "H4_BOS_up",
+            "displacement": true,
+            "volume_spike": false,
+            "entry_model": "FVG_OB_confluence",
+            "extra_filters": [
+                "Judas_swing_recognition",
+                "DIS_ACC_zone_validation",
+                "HTF_LTF_alignment"
+            ]
+        }
+    },
+    "execution": {
+        "entry_price": 0,
+        "stop_loss": 0,
+        "risk_pips": 15,
+        "position_size_risk_pct": 1.0,
+        "max_adverse_excursion_pips": 0,
+        "max_favorable_excursion_pips": 0,
+        "targets": [
+            {
+                "label": "HTF_Liquidity",
+                "price": 0,
+                "reason": "HTF_buyside_liquidity",
+                "expected_rr": 4.0
+            }
+        ]
+    },
+    "management": {
+        "partials": [],
+        "breakeven_move": "after_TP1",
+        "trail_method": "none",
+        "final_outcome": {
+            "result": "win",
+            "pnl_pips": 0,
+            "r_achieved": 0,
+            "exit_reason": "educational_analysis"
+        }
+    },
+    "reasoning": {
+        "why_here": "Trading inside HTF prior zone (ACC1/DIS1). FVG fill on Judas provides optimal entry. DIS3 doesn't pair with matching 15min ACC zone, creating higher timeframe separation and validating prior zone as entry area.",
+        "why_now": "Multiple play scenarios identified: Play 1 (FVG fill on Judas), Play 2 (straight continuation), Play 3 (fade Judas into FVG), Play 4 (double Judas with opposing FVG). Educational exercise in scenario planning.",
+        "what_invalidates": "Break below prior DIS zone invalidates bullish HTF structure.",
+        "notes": "This is an EDUCATIONAL ANALYSIS showing the thought process for identifying multiple potential plays. Key concepts: (1) DIS zones that turn into ACC zones, (2) Judas swings taking out short-term sellers, (3) FVG fills inside prior zones, (4) Multi-scenario planning. Charts show real-time analysis evolution over 1 hour (11:32 AM to 12:23 PM), demonstrating how trader refines understanding of market structure."
+    },
+    "labels": {
+        "is_valid_setup": true,
+        "quality_tag": "A_plus",
+        "example_type": "positive",
+        "primary_concept": "multi_play_FVG_analysis",
+        "all_concepts": [
+            "DIS_ACC_zones",
+            "Judas_swings",
+            "FVG_fills",
+            "HTF_prior_zones",
+            "multi_scenario_planning",
+            "educational_analysis"
+        ]
+    },
+    "failure_analysis": null
+}
